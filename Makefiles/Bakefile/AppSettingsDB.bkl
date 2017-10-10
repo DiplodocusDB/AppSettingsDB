@@ -1,0 +1,31 @@
+toolsets = gnu vs2015 vs2013;
+
+gnu.makefile = ../GNUmakefile/GNUmakefile;
+vs2015.solutionfile = ../VC14/AppSettingsDB.sln;
+vs2013.solutionfile = ../VC12/AppSettingsDB.sln;
+
+library AppSettingsDB
+{
+    archs = x86 x86_64;
+   
+    if ($(toolset) == gnu)
+    {
+        cxx-compiler-options = "-std=c++11";
+        outputdir = ../../Lib;
+    }
+
+    if ($(toolset) != gnu)
+    {
+        outputdir = ../../Lib/$(arch);
+    }
+
+    if ($(config) == Debug)
+    {
+        basename = AppSettingsDB-d;
+    }
+
+    headers
+    {
+        ../../Include/DiplodocusDB/AppSettingsDB.h
+    }
+}
