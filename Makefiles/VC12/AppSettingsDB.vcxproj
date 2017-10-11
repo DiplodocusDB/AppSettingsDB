@@ -88,6 +88,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalIncludeDirectories>..\..\Include\DiplodocusDB\AppSettingsDB</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -102,6 +103,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalIncludeDirectories>..\..\Include\DiplodocusDB\AppSettingsDB</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -118,6 +120,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalIncludeDirectories>..\..\Include\DiplodocusDB\AppSettingsDB</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -136,6 +139,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalIncludeDirectories>..\..\Include\DiplodocusDB\AppSettingsDB</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -146,7 +150,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\AppSettingsDB.cpp" />
+    <ClCompile Include="..\..\Source\AppSettingsDBRepository.cpp" />
+    <ClCompile Include="..\..\Source\AppSettingsDBXMLFileRepository.cpp" />
+    <ClCompile Include="..\..\Source\AppSettingsDBXMLFileRepositoryImpl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB.h" />
+    <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\AppSettingsDB.h" />
+    <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\AppSettingsDBRepository.h" />
+    <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\AppSettingsDBXMLFileRepository.h" />
+    <ClInclude Include="..\..\Source\AppSettingsDBXMLFileRepositoryImpl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

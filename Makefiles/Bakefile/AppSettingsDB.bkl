@@ -8,6 +8,8 @@ library AppSettingsDB
 {
     archs = x86 x86_64;
    
+    includedirs += ../../Include/DiplodocusDB/AppSettingsDB;
+
     if ($(toolset) == gnu)
     {
         cxx-compiler-options = "-std=c++11";
@@ -27,5 +29,19 @@ library AppSettingsDB
     headers
     {
         ../../Include/DiplodocusDB/AppSettingsDB.h
+
+        ../../Include/DiplodocusDB/AppSettingsDB/AppSettingsDB.h
+        ../../Include/DiplodocusDB/AppSettingsDB/AppSettingsDBRepository.h
+        ../../Include/DiplodocusDB/AppSettingsDB/AppSettingsDBXMLFileRepository.h
+
+        ../../Source/AppSettingsDBXMLFileRepositoryImpl.h
+    }
+
+    sources
+    {
+        ../../Source/AppSettingsDB.cpp
+        ../../Source/AppSettingsDBRepository.cpp
+        ../../Source/AppSettingsDBXMLFileRepository.cpp
+        ../../Source/AppSettingsDBXMLFileRepositoryImpl.cpp
     }
 }
