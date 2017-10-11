@@ -29,4 +29,6 @@ using namespace Ishiko::TestFramework;
 
 void AddAppSettingsDBXMLFileRepositoryTests(TestHarness& theTestHarness);
 
+TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreationTest1();
+
 #endif

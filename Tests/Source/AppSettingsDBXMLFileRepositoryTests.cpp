@@ -25,4 +25,11 @@
 void AddAppSettingsDBXMLFileRepositoryTests(TestHarness& theTestHarness)
 {
     TestSequence& repositoryTestSequence = theTestHarness.appendTestSequence("AppSettingsDBXMLFileRepository tests");
+
+    new HeapAllocationErrorsTest("Creation test 1", AppSettingsDBXMLFileRepositoryCreationTest1, repositoryTestSequence);
+}
+
+TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreationTest1()
+{
+    return TestResult::eFailed;
 }
