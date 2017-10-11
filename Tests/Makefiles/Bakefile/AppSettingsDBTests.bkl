@@ -10,8 +10,14 @@ program AppSettingsDBTests : IshikoTestFrameworkCore
 {
     archs = x86 x86_64;
 
+    headers
+    {
+        ../../Source/AppSettingsDBXMLFileRepositoryTests.h
+    }
+
     sources
     {
         ../../Source/main.cpp
+        ../../Source/AppSettingsDBXMLFileRepositoryTests.cpp
     }
 }

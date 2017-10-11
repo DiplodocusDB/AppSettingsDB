@@ -21,13 +21,8 @@
 */
 
 #include "AppSettingsDBXMLFileRepositoryTests.h"
-#include "Ishiko/TestFramework/TestFrameworkCore.h"
 
-int main(int argc, char* argv[])
+void AddAppSettingsDBXMLFileRepositoryTests(TestHarness& theTestHarness)
 {
-    Ishiko::TestFramework::TestHarness theTestHarness("AppSettingsDB");
-
-    AddAppSettingsDBXMLFileRepositoryTests(theTestHarness);
-
-    return theTestHarness.run();
+    TestSequence& repositoryTestSequence = theTestHarness.appendTestSequence("AppSettingsDBXMLFileRepository tests");
 }
