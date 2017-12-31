@@ -1,12 +1,14 @@
 ishikopath = envvar("ISHIKO");
 import $(ishikopath)/TestFramework/Include/Ishiko/TestFramework/TestFrameworkCore.bkl;
+diplodocusdbpath = envvar("DIPLODOCUSDB");
+import $(diplodocusdbpath)/AppSettingsDB/Include/DiplodocusDB/AppSettingsDB.bkl;
 
 toolsets = vs2015 vs2013;
 
 vs2015.solutionfile = ../VC14/AppSettingsDBTests.sln;
 vs2013.solutionfile = ../VC12/AppSettingsDBTests.sln;
 
-program AppSettingsDBTests : IshikoTestFrameworkCore
+program AppSettingsDBTests : AppSettingsDB, IshikoTestFrameworkCore
 {
     archs = x86 x86_64;
 

@@ -1,0 +1,11 @@
+setting DIPLODOCUSDB_APPSETTINGSDB_ROOT
+{
+    help = "Path to the DiplodocusDB installation";
+    default = '$(DIPLODOCUSDB)/AppSettingsDB';
+}
+
+template AppSettingsDB
+{
+    includedirs += $(DIPLODOCUSDB_APPSETTINGSDB_ROOT)/Include;
+    libdirs += $(DIPLODOCUSDB_APPSETTINGSDB_ROOT)/Lib/$(arch);
+}
