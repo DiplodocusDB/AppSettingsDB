@@ -20,16 +20,9 @@
     IN THE SOFTWARE.
 */
 
-#include "AppSettingsDBXMLFileRepositoryTests.h"
 #include "AppSettingsDBTests.h"
-#include "Ishiko/TestFramework/TestFrameworkCore.h"
 
-int main(int argc, char* argv[])
+void AddAppSettingsDBTests(TestHarness& theTestHarness)
 {
-    Ishiko::TestFramework::TestHarness theTestHarness("AppSettingsDB");
-
-    AddAppSettingsDBXMLFileRepositoryTests(theTestHarness);
-    AddAppSettingsDBTests(theTestHarness);
-
-    return theTestHarness.run();
+    TestSequence& appSettingsDBTestSequence = theTestHarness.appendTestSequence("AppSettingsDB tests");
 }
