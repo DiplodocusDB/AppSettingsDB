@@ -24,6 +24,7 @@
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDB_H_
 
 #include "AppSettingsDBRepository.h"
+#include "AppSettingsDBNode.h"
 #include "Ishiko/Errors/Error.h"
 #include <string>
 #include <memory>
@@ -37,10 +38,13 @@ public:
     AppSettingsDB();
     ~AppSettingsDB();
 
-    void add(const std::string& key, Ishiko::Error& error);
+    std::string getString(const std::string& key, Ishiko::Error& error) const;
+    void setString(const std::string& key, const std::string& value, Ishiko::Error& error);
+    void set(const std::string& key, const std::string& value, Ishiko::Error& error);
 
 private:
     std::shared_ptr<AppSettingsDBRepository> m_repository;
+    AppSettingsDBNode m_root;
 };
 
 }

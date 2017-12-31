@@ -32,7 +32,7 @@ class AppSettingsDBXMLFileRepository : public AppSettingsDBRepository
 {
 public:
     AppSettingsDBXMLFileRepository();
-    ~AppSettingsDBXMLFileRepository();
+    ~AppSettingsDBXMLFileRepository() override;
 };
 
 }

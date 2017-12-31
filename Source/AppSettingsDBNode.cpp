@@ -21,3 +21,23 @@
 */
 
 #include "AppSettingsDBNode.h"
+
+namespace DiplodocusDB
+{
+
+AppSettingsDBNode::AppSettingsDBNode(const std::string& key)
+    : m_key(key), m_dataType(EPrimitiveDataTypes::eNULL)
+{
+}
+
+AppSettingsDBNode::~AppSettingsDBNode()
+{
+}
+
+void AppSettingsDBNode::setString(const std::string& value)
+{
+    m_dataType = EPrimitiveDataTypes::eUTF8String;
+    m_value = value;
+}
+
+}

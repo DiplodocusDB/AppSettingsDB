@@ -37,7 +37,8 @@ endif
 # Additionally, this makefile is customizable with the following
 # settings:
 #
-#      ISHIKO_ERRORS_ROOT  Path to the Ishiko Errors installation
+#      ISHIKO_ERRORS_ROOT      Path to the Ishiko Errors installation
+#      DIPLODOCUSDB_CORE_ROOT  Path to the DiplodocusDB installation
 
 # Use "make RANLIB=''" for platforms without ranlib.
 RANLIB ?= ranlib
@@ -66,6 +67,8 @@ endif
 
 # Path to the Ishiko Errors installation
 ISHIKO_ERRORS_ROOT ?= $(ISHIKO)/Errors
+# Path to the DiplodocusDB installation
+DIPLODOCUSDB_CORE_ROOT ?= $(DIPLODOCUSDB)/Core
 
 # ------------
 
@@ -76,19 +79,19 @@ all: ../Bakefile/../../Lib/lib$(if $(call _equal,$(config),Debug),AppSettingsDB-
 	$(RANLIB) $@
 
 $(_builddir)AppSettingsDB_AppSettingsDB.o: ../../Source/AppSettingsDB.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDB.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDB.cpp
 
 $(_builddir)AppSettingsDB_AppSettingsDBNode.o: ../../Source/AppSettingsDBNode.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBNode.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBNode.cpp
 
 $(_builddir)AppSettingsDB_AppSettingsDBRepository.o: ../../Source/AppSettingsDBRepository.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBRepository.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBRepository.cpp
 
 $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o: ../../Source/AppSettingsDBXMLFileRepository.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBXMLFileRepository.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBXMLFileRepository.cpp
 
 $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o: ../../Source/AppSettingsDBXMLFileRepositoryImpl.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBXMLFileRepositoryImpl.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBXMLFileRepositoryImpl.cpp
 
 clean:
 	rm -f $(_builddir)*.o

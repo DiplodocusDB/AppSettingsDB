@@ -29,7 +29,9 @@ void AddAppSettingsDBTests(TestHarness& theTestHarness)
 
     new HeapAllocationErrorsTest("Creation test 1", AppSettingsDBCreationTest1, appSettingsDBTestSequence);
 
-    new HeapAllocationErrorsTest("add test 1", AppSettingsDBAddTest1, appSettingsDBTestSequence);
+    new HeapAllocationErrorsTest("set test 1", AppSettingsDBSetTest1, appSettingsDBTestSequence);
+
+    new HeapAllocationErrorsTest("setString test 1", AppSettingsDBSetStringTest1, appSettingsDBTestSequence);
 }
 
 TestResult::EOutcome AppSettingsDBCreationTest1()
@@ -38,18 +40,43 @@ TestResult::EOutcome AppSettingsDBCreationTest1()
     return TestResult::ePassed;
 }
 
-TestResult::EOutcome AppSettingsDBAddTest1()
+TestResult::EOutcome AppSettingsDBSetTest1()
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
     DiplodocusDB::AppSettingsDB appSettings;
 
     Ishiko::Error error;
-    appSettings.add("key1", error);
+    appSettings.set("key1", "value1", error);
 
     if (!error)
     {
-        result = TestResult::ePassed;
+        std::string value = appSettings.getString("key1", error);
+        if (!error && (value == "value1"))
+        {
+            result = TestResult::ePassed;
+        }
+    }
+
+    return result;
+}
+
+TestResult::EOutcome AppSettingsDBSetStringTest1()
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    DiplodocusDB::AppSettingsDB appSettings;
+
+    Ishiko::Error error;
+    appSettings.setString("key1", "value1", error);
+
+    if (!error)
+    {
+        std::string value = appSettings.getString("key1", error);
+        if (!error && (value == "value1"))
+        {
+            result = TestResult::ePassed;
+        }
     }
 
     return result;

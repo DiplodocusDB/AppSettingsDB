@@ -23,4 +23,26 @@
 #ifndef _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBNODE_H_
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBNODE_H_
 
+#include "DiplodocusDB/Core/PrimitiveDataTypes.h"
+#include <vector>
+
+namespace DiplodocusDB
+{
+
+class AppSettingsDBNode
+{
+public:
+    AppSettingsDBNode(const std::string& key);
+    ~AppSettingsDBNode();
+
+    void setString(const std::string& value);
+
+    std::string m_key;
+    EPrimitiveDataTypes m_dataType;
+    std::string m_value;
+    std::vector<AppSettingsDBNode> m_children;
+};
+
+}
+
 #endif

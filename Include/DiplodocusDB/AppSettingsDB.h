@@ -23,4 +23,8 @@
 #ifndef _DIPLODOCUSDB_APPSETTINGSDB_H_
 #define _DIPLODOCUSDB_APPSETTINGSDB_H_
 
+#include "AppSettingsDB/AppSettingsDB.h"
+
+#include "AppSettingsDB/linkoptions.h"
+
 #endif

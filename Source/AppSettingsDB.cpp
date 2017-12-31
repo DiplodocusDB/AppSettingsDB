@@ -26,6 +26,7 @@ namespace DiplodocusDB
 {
 
 AppSettingsDB::AppSettingsDB()
+    : m_root("root")
 {
 }
 
@@ -33,10 +34,49 @@ AppSettingsDB::~AppSettingsDB()
 {
 }
 
-void AppSettingsDB::add(const std::string& key,
+std::string AppSettingsDB::getString(const std::string& key,
+                                     Ishiko::Error& error) const
+{
+    std::string result;
+
+    bool found = false;
+    for (AppSettingsDBNode node : m_root.m_children)
+    {
+        if (node.m_key == key)
+        {
+            result = node.m_value;
+            found = true;
+        }
+    }
+    if (!found)
+    {
+        error = -1;
+    }
+    return result;
+}
+
+void AppSettingsDB::setString(const std::string& key,
+                              const std::string& value,
+                              Ishiko::Error& error)
+{
+    set(key, value, error);
+}
+
+void AppSettingsDB::set(const std::string& key,
+                        const std::string& value,
                         Ishiko::Error& error)
 {
-    error = -1;
+    try
+    {
+        AppSettingsDBNode newNode(key);
+        newNode.m_dataType = EPrimitiveDataTypes::eUTF8String;
+        newNode.m_value = value;
+        m_root.m_children.push_back(newNode);
+    }
+    catch (...)
+    {
+        error = -1;
+    }
 }
 
 }

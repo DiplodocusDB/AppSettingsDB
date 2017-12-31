@@ -1,5 +1,7 @@
 ishikopath = envvar("ISHIKO");
 import $(ishikopath)/Errors/Include/Ishiko/Errors.bkl;
+diplodocusdbpath = envvar("DIPLODOCUSDB");
+import $(diplodocusdbpath)/Core/Include/DiplodocusDB/DiplodocusDBCore.bkl;
 
 setting DIPLODOCUSDB_APPSETTINGSDB_ROOT
 {
@@ -7,7 +9,7 @@ setting DIPLODOCUSDB_APPSETTINGSDB_ROOT
     default = '$(DIPLODOCUSDB)/AppSettingsDB';
 }
 
-template AppSettingsDB : IshikoErrors
+template AppSettingsDB : DiplodocusDBCore, IshikoErrors
 {
     includedirs += $(DIPLODOCUSDB_APPSETTINGSDB_ROOT)/Include;
     libdirs += $(DIPLODOCUSDB_APPSETTINGSDB_ROOT)/Lib/$(arch);
