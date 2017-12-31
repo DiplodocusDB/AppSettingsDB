@@ -23,6 +23,11 @@
 #ifndef _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDB_H_
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDB_H_
 
+#include "AppSettingsDBRepository.h"
+#include "Ishiko/Errors/Error.h"
+#include <string>
+#include <memory>
+
 namespace DiplodocusDB
 {
 
@@ -31,6 +36,11 @@ class AppSettingsDB
 public:
     AppSettingsDB();
     ~AppSettingsDB();
+
+    void add(const std::string& key, Ishiko::Error& error);
+
+private:
+    std::shared_ptr<AppSettingsDBRepository> m_repository;
 };
 
 }

@@ -23,4 +23,18 @@
 #ifndef _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBREPOSITORY_H_
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBREPOSITORY_H_
 
+namespace DiplodocusDB
+{
+
+class AppSettingsDBRepository
+{
+public:
+    AppSettingsDBRepository();
+    virtual ~AppSettingsDBRepository();
+};
+
+}
+
+#include "linkoptions.h"
+
 #endif

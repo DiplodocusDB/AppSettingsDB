@@ -33,4 +33,10 @@ AppSettingsDB::~AppSettingsDB()
 {
 }
 
+void AppSettingsDB::add(const std::string& key,
+                        Ishiko::Error& error)
+{
+    error = -1;
+}
+
 }

@@ -23,10 +23,12 @@
 #ifndef _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLFILEREPOSITORY_H_
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLFILEREPOSITORY_H_
 
+#include "AppSettingsDBRepository.h"
+
 namespace DiplodocusDB
 {
 
-class AppSettingsDBXMLFileRepository
+class AppSettingsDBXMLFileRepository : public AppSettingsDBRepository
 {
 public:
     AppSettingsDBXMLFileRepository();

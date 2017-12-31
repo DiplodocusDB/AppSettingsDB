@@ -28,10 +28,29 @@ void AddAppSettingsDBTests(TestHarness& theTestHarness)
     TestSequence& appSettingsDBTestSequence = theTestHarness.appendTestSequence("AppSettingsDB tests");
 
     new HeapAllocationErrorsTest("Creation test 1", AppSettingsDBCreationTest1, appSettingsDBTestSequence);
+
+    new HeapAllocationErrorsTest("add test 1", AppSettingsDBAddTest1, appSettingsDBTestSequence);
 }
 
 TestResult::EOutcome AppSettingsDBCreationTest1()
 {
     DiplodocusDB::AppSettingsDB appSettings;
     return TestResult::ePassed;
+}
+
+TestResult::EOutcome AppSettingsDBAddTest1()
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    DiplodocusDB::AppSettingsDB appSettings;
+
+    Ishiko::Error error;
+    appSettings.add("key1", error);
+
+    if (!error)
+    {
+        result = TestResult::ePassed;
+    }
+
+    return result;
 }

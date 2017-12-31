@@ -30,5 +30,6 @@ using namespace Ishiko::TestFramework;
 void AddAppSettingsDBTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome AppSettingsDBCreationTest1();
+TestResult::EOutcome AppSettingsDBAddTest1();
 
 #endif
