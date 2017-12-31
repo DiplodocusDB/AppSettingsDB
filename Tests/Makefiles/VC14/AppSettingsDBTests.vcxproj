@@ -154,9 +154,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\main.cpp" />
     <ClCompile Include="..\..\Source\AppSettingsDBXMLFileRepositoryTests.cpp" />
+    <ClCompile Include="..\..\Source\AppSettingsDBTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\AppSettingsDBXMLFileRepositoryTests.h" />
+    <ClInclude Include="..\..\Source\AppSettingsDBTests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

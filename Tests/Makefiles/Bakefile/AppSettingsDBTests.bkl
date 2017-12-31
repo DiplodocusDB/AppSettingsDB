@@ -15,11 +15,13 @@ program AppSettingsDBTests : AppSettingsDB, IshikoTestFrameworkCore
     headers
     {
         ../../Source/AppSettingsDBXMLFileRepositoryTests.h
+        ../../Source/AppSettingsDBTests.h
     }
 
     sources
     {
         ../../Source/main.cpp
         ../../Source/AppSettingsDBXMLFileRepositoryTests.cpp
+        ../../Source/AppSettingsDBTests.cpp
     }
 }
