@@ -71,12 +71,15 @@ ISHIKO_ERRORS_ROOT ?= $(ISHIKO)/Errors
 
 all: ../Bakefile/../../Lib/lib$(if $(call _equal,$(config),Debug),AppSettingsDB-d,AppSettingsDB).a
 
-../Bakefile/../../Lib/lib$(if $(call _equal,$(config),Debug),AppSettingsDB-d,AppSettingsDB).a: $(_builddir)AppSettingsDB_AppSettingsDB.o $(_builddir)AppSettingsDB_AppSettingsDBRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o
-	$(AR) rcu $@ $(_builddir)AppSettingsDB_AppSettingsDB.o $(_builddir)AppSettingsDB_AppSettingsDBRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o
+../Bakefile/../../Lib/lib$(if $(call _equal,$(config),Debug),AppSettingsDB-d,AppSettingsDB).a: $(_builddir)AppSettingsDB_AppSettingsDB.o $(_builddir)AppSettingsDB_AppSettingsDBNode.o $(_builddir)AppSettingsDB_AppSettingsDBRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o
+	$(AR) rcu $@ $(_builddir)AppSettingsDB_AppSettingsDB.o $(_builddir)AppSettingsDB_AppSettingsDBNode.o $(_builddir)AppSettingsDB_AppSettingsDBRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o
 	$(RANLIB) $@
 
 $(_builddir)AppSettingsDB_AppSettingsDB.o: ../../Source/AppSettingsDB.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDB.cpp
+
+$(_builddir)AppSettingsDB_AppSettingsDBNode.o: ../../Source/AppSettingsDBNode.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBNode.cpp
 
 $(_builddir)AppSettingsDB_AppSettingsDBRepository.o: ../../Source/AppSettingsDBRepository.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBRepository.cpp

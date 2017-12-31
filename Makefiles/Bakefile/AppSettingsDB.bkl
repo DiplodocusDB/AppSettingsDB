@@ -34,6 +34,7 @@ library AppSettingsDB : IshikoErrors
         ../../Include/DiplodocusDB/AppSettingsDB.h
 
         ../../Include/DiplodocusDB/AppSettingsDB/AppSettingsDB.h
+        ../../Include/DiplodocusDB/AppSettingsDB/AppSettingsDBNode.h
         ../../Include/DiplodocusDB/AppSettingsDB/AppSettingsDBRepository.h
         ../../Include/DiplodocusDB/AppSettingsDB/AppSettingsDBXMLFileRepository.h
         ../../Include/DiplodocusDB/AppSettingsDB/linkoptions.h
@@ -44,6 +45,7 @@ library AppSettingsDB : IshikoErrors
     sources
     {
         ../../Source/AppSettingsDB.cpp
+        ../../Source/AppSettingsDBNode.cpp
         ../../Source/AppSettingsDBRepository.cpp
         ../../Source/AppSettingsDBXMLFileRepository.cpp
         ../../Source/AppSettingsDBXMLFileRepositoryImpl.cpp

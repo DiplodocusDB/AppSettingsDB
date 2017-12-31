@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AppSettingsDB.cpp" />
+    <ClCompile Include="..\..\Source\AppSettingsDBNode.cpp" />
     <ClCompile Include="..\..\Source\AppSettingsDBRepository.cpp" />
     <ClCompile Include="..\..\Source\AppSettingsDBXMLFileRepository.cpp" />
     <ClCompile Include="..\..\Source\AppSettingsDBXMLFileRepositoryImpl.cpp" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB.h" />
     <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\AppSettingsDB.h" />
+    <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\AppSettingsDBNode.h" />
     <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\AppSettingsDBRepository.h" />
     <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\AppSettingsDBXMLFileRepository.h" />
     <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\linkoptions.h" />
