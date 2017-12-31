@@ -29,6 +29,9 @@
     <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\AppSettingsDBXMLFileRepository.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\linkoptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\AppSettingsDBXMLFileRepositoryImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>

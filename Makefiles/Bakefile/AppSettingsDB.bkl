@@ -33,6 +33,7 @@ library AppSettingsDB
         ../../Include/DiplodocusDB/AppSettingsDB/AppSettingsDB.h
         ../../Include/DiplodocusDB/AppSettingsDB/AppSettingsDBRepository.h
         ../../Include/DiplodocusDB/AppSettingsDB/AppSettingsDBXMLFileRepository.h
+        ../../Include/DiplodocusDB/AppSettingsDB/linkoptions.h
 
         ../../Source/AppSettingsDBXMLFileRepositoryImpl.h
     }

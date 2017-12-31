@@ -21,3 +21,16 @@
 */
 
 #include "AppSettingsDB.h"
+
+namespace DiplodocusDB
+{
+
+AppSettingsDB::AppSettingsDB()
+{
+}
+
+AppSettingsDB::~AppSettingsDB()
+{
+}
+
+}

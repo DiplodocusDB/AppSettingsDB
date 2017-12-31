@@ -20,21 +20,13 @@
     IN THE SOFTWARE.
 */
 
-#ifndef _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDB_H_
-#define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDB_H_
+#ifndef _DIPLODOCUSDB_APPSETTINGSDB_LINKOPTIONS_H_
+#define _DIPLODOCUSDB_APPSETTINGSDB_LINKOPTIONS_H_
 
-namespace DiplodocusDB
-{
-
-class AppSettingsDB
-{
-public:
-    AppSettingsDB();
-    ~AppSettingsDB();
-};
-
-}
-
-#include "linkoptions.h"
+#ifdef _DEBUG
+#pragma comment(lib, "AppSettingsDB-d.lib")
+#else
+#pragma comment(lib, "AppSettingsDB.lib")
+#endif
 
 #endif

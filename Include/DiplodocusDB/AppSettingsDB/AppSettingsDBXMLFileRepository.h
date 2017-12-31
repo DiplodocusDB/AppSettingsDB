@@ -23,4 +23,18 @@
 #ifndef _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLFILEREPOSITORY_H_
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLFILEREPOSITORY_H_
 
+namespace DiplodocusDB
+{
+
+class AppSettingsDBXMLFileRepository
+{
+public:
+    AppSettingsDBXMLFileRepository();
+    ~AppSettingsDBXMLFileRepository();
+};
+
+}
+
+#include "linkoptions.h"
+
 #endif

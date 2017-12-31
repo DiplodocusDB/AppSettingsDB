@@ -21,8 +21,17 @@
 */
 
 #include "AppSettingsDBTests.h"
+#include "DiplodocusDB/AppSettingsDB/AppSettingsDB.h"
 
 void AddAppSettingsDBTests(TestHarness& theTestHarness)
 {
     TestSequence& appSettingsDBTestSequence = theTestHarness.appendTestSequence("AppSettingsDB tests");
+
+    new HeapAllocationErrorsTest("Creation test 1", AppSettingsDBCreationTest1, appSettingsDBTestSequence);
+}
+
+TestResult::EOutcome AppSettingsDBCreationTest1()
+{
+    DiplodocusDB::AppSettingsDB appSettings;
+    return TestResult::ePassed;
 }

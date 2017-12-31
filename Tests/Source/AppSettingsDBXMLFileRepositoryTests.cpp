@@ -21,6 +21,7 @@
 */
 
 #include "AppSettingsDBXMLFileRepositoryTests.h"
+#include "DiplodocusDB/AppSettingsDB/AppSettingsDBXMLFileRepository.h"
 
 void AddAppSettingsDBXMLFileRepositoryTests(TestHarness& theTestHarness)
 {
@@ -31,5 +32,6 @@ void AddAppSettingsDBXMLFileRepositoryTests(TestHarness& theTestHarness)
 
 TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreationTest1()
 {
-    return TestResult::eFailed;
+    DiplodocusDB::AppSettingsDBXMLFileRepository repository;
+    return TestResult::ePassed;
 }
