@@ -28,10 +28,19 @@ void AddAppSettingsDBXMLFileRepositoryTests(TestHarness& theTestHarness)
     TestSequence& repositoryTestSequence = theTestHarness.appendTestSequence("AppSettingsDBXMLFileRepository tests");
 
     new HeapAllocationErrorsTest("Creation test 1", AppSettingsDBXMLFileRepositoryCreationTest1, repositoryTestSequence);
+
+    new FileComparisonTest("open test 1", AppSettingsDBXMLFileRepositoryOpenTest1, repositoryTestSequence);
 }
 
 TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreationTest1()
 {
     DiplodocusDB::AppSettingsDBXMLFileRepository repository;
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome AppSettingsDBXMLFileRepositoryOpenTest1(FileComparisonTest& test)
+{
+    DiplodocusDB::AppSettingsDBXMLFileRepository repository;
+    repository.open();
     return TestResult::ePassed;
 }

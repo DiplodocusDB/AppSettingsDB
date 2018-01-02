@@ -23,10 +23,14 @@
 #include "AppSettingsDBXMLFileRepositoryTests.h"
 #include "AppSettingsDBTests.h"
 #include "Ishiko/TestFramework/TestFrameworkCore.h"
+#include <boost/filesystem/operations.hpp>
 
 int main(int argc, char* argv[])
 {
     Ishiko::TestFramework::TestHarness theTestHarness("AppSettingsDB");
+
+    theTestHarness.environment().setTestOutputDirectory("../../TestOutput");
+    boost::filesystem::create_directories("../../TestOutput");
 
     AddAppSettingsDBXMLFileRepositoryTests(theTestHarness);
     AddAppSettingsDBTests(theTestHarness);

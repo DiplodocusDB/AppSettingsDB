@@ -34,7 +34,7 @@ public:
     AppSettingsDBXMLFileRepository();
     ~AppSettingsDBXMLFileRepository() override;
 
-    void save() override;
+    void open();
 };
 
 }

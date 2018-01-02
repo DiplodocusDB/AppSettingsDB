@@ -29,20 +29,13 @@ void AddAppSettingsDBTests(TestHarness& theTestHarness)
     TestSequence& appSettingsDBTestSequence = theTestHarness.appendTestSequence("AppSettingsDB tests");
 
     new HeapAllocationErrorsTest("Creation test 1", AppSettingsDBCreationTest1, appSettingsDBTestSequence);
-    new HeapAllocationErrorsTest("Creation test 2", AppSettingsDBCreationTest2, appSettingsDBTestSequence);
-
+    
     new HeapAllocationErrorsTest("set test 1", AppSettingsDBSetTest1, appSettingsDBTestSequence);
 
     new HeapAllocationErrorsTest("setString test 1", AppSettingsDBSetStringTest1, appSettingsDBTestSequence);
 }
 
 TestResult::EOutcome AppSettingsDBCreationTest1()
-{
-    DiplodocusDB::AppSettingsDB appSettings;
-    return TestResult::ePassed;
-}
-
-TestResult::EOutcome AppSettingsDBCreationTest2()
 {
     std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
     DiplodocusDB::AppSettingsDB appSettings(repository);
@@ -53,7 +46,8 @@ TestResult::EOutcome AppSettingsDBSetTest1()
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
-    DiplodocusDB::AppSettingsDB appSettings;
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    DiplodocusDB::AppSettingsDB appSettings(repository);
 
     Ishiko::Error error;
     appSettings.set("key1", "value1", error);
@@ -74,7 +68,8 @@ TestResult::EOutcome AppSettingsDBSetStringTest1()
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
-    DiplodocusDB::AppSettingsDB appSettings;
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    DiplodocusDB::AppSettingsDB appSettings(repository);
 
     Ishiko::Error error;
     appSettings.setString("key1", "value1", error);

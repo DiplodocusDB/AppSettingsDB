@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2017 Xavier Leclercq
+    Copyright (c) 2015-1018 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -24,11 +24,6 @@
 
 namespace DiplodocusDB
 {
-
-AppSettingsDB::AppSettingsDB()
-    : m_root("root")
-{
-}
 
 AppSettingsDB::AppSettingsDB(std::shared_ptr<AppSettingsDBRepository> repository)
     : m_repository(repository), m_root("root")
@@ -77,11 +72,6 @@ void AppSettingsDB::set(const std::string& key,
         newNode.m_dataType = EPrimitiveDataTypes::eUTF8String;
         newNode.m_value = value;
         m_root.m_children.push_back(newNode);
-
-        if (m_repository)
-        {
-            m_repository->save();
-        }
     }
     catch (...)
     {
