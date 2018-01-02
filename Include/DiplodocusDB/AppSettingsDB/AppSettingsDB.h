@@ -36,6 +36,7 @@ class AppSettingsDB
 {
 public:
     AppSettingsDB();
+    AppSettingsDB(std::shared_ptr<AppSettingsDBRepository> repository);
     ~AppSettingsDB();
 
     std::string getString(const std::string& key, Ishiko::Error& error) const;

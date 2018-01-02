@@ -22,12 +22,14 @@
 
 #include "AppSettingsDBTests.h"
 #include "DiplodocusDB/AppSettingsDB/AppSettingsDB.h"
+#include "DiplodocusDB/AppSettingsDB/AppSettingsDBXMLFileRepository.h"
 
 void AddAppSettingsDBTests(TestHarness& theTestHarness)
 {
     TestSequence& appSettingsDBTestSequence = theTestHarness.appendTestSequence("AppSettingsDB tests");
 
     new HeapAllocationErrorsTest("Creation test 1", AppSettingsDBCreationTest1, appSettingsDBTestSequence);
+    new HeapAllocationErrorsTest("Creation test 2", AppSettingsDBCreationTest2, appSettingsDBTestSequence);
 
     new HeapAllocationErrorsTest("set test 1", AppSettingsDBSetTest1, appSettingsDBTestSequence);
 
@@ -37,6 +39,13 @@ void AddAppSettingsDBTests(TestHarness& theTestHarness)
 TestResult::EOutcome AppSettingsDBCreationTest1()
 {
     DiplodocusDB::AppSettingsDB appSettings;
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome AppSettingsDBCreationTest2()
+{
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    DiplodocusDB::AppSettingsDB appSettings(repository);
     return TestResult::ePassed;
 }
 

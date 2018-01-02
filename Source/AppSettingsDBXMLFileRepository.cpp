@@ -33,4 +33,8 @@ AppSettingsDBXMLFileRepository::~AppSettingsDBXMLFileRepository()
 {
 }
 
+void AppSettingsDBXMLFileRepository::save()
+{
+}
+
 }

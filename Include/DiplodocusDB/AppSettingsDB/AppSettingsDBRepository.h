@@ -31,6 +31,8 @@ class AppSettingsDBRepository
 public:
     AppSettingsDBRepository();
     virtual ~AppSettingsDBRepository();
+
+    virtual void save() = 0;
 };
 
 }

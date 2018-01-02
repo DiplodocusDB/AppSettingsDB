@@ -30,6 +30,11 @@ AppSettingsDB::AppSettingsDB()
 {
 }
 
+AppSettingsDB::AppSettingsDB(std::shared_ptr<AppSettingsDBRepository> repository)
+    : m_repository(repository), m_root("root")
+{
+}
+
 AppSettingsDB::~AppSettingsDB()
 {
 }
@@ -72,6 +77,11 @@ void AppSettingsDB::set(const std::string& key,
         newNode.m_dataType = EPrimitiveDataTypes::eUTF8String;
         newNode.m_value = value;
         m_root.m_children.push_back(newNode);
+
+        if (m_repository)
+        {
+            m_repository->save();
+        }
     }
     catch (...)
     {

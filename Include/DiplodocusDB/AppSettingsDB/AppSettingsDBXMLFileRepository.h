@@ -33,6 +33,8 @@ class AppSettingsDBXMLFileRepository : public AppSettingsDBRepository
 public:
     AppSettingsDBXMLFileRepository();
     ~AppSettingsDBXMLFileRepository() override;
+
+    void save() override;
 };
 
 }
