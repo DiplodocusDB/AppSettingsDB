@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2017-2018 Xavier Leclercq
+    Copyright (c) 2015-2018 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -21,7 +21,40 @@
 */
 
 #include "AppSettingsDBXMLFileRepositoryImpl.h"
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/fstream.hpp>
 
 namespace DiplodocusDB
 {
+
+AppSettingsDBXMLFileRepositoryImpl::AppSettingsDBXMLFileRepositoryImpl()
+{
+}
+
+AppSettingsDBXMLFileRepositoryImpl::~AppSettingsDBXMLFileRepositoryImpl()
+{
+}
+
+void AppSettingsDBXMLFileRepositoryImpl::create(const VersionNumber& version, 
+                                                const boost::filesystem::path& path)
+{
+    boost::filesystem::path pathDir(path);
+    pathDir.remove_filename();
+    boost::filesystem::create_directories(pathDir);
+    boost::filesystem::ofstream file(path);
+
+    m_rootNode = m_document.append_child("application-settings");
+    if (m_rootNode)
+    {
+        pugi::xml_node versionNode = m_rootNode.append_child("version");
+        versionNode.text().set(version.toString().c_str());
+
+        m_document.save(file);
+    }
+}
+
+void AppSettingsDBXMLFileRepositoryImpl::open(const boost::filesystem::path& path)
+{
+}
+
 }

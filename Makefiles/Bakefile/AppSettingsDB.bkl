@@ -1,4 +1,6 @@
 ishikopath = envvar("ISHIKO");
+import $(ishikopath)/ThirdPartyGlue/Include/Ishiko/Boost.bkl;
+import $(ishikopath)/ThirdPartyGlue/Include/Ishiko/pugixml.bkl;
 import $(ishikopath)/Errors/Include/Ishiko/Errors.bkl;
 diplodocusdbpath = envvar("DIPLODOCUSDB");
 import $(diplodocusdbpath)/Core/Include/DiplodocusDB/DiplodocusDBCore.bkl;
@@ -9,7 +11,7 @@ gnu.makefile = ../GNUmakefile/GNUmakefile;
 vs2015.solutionfile = ../VC14/AppSettingsDB.sln;
 vs2013.solutionfile = ../VC12/AppSettingsDB.sln;
 
-library AppSettingsDB : DiplodocusDBCore, IshikoErrors
+library AppSettingsDB : DiplodocusDBCore, IshikoErrors, pugixml, Boost
 {
     archs = x86 x86_64;
    

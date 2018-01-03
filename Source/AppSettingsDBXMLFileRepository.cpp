@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2017 Xavier Leclercq
+    Copyright (c) 2015-2018 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -21,11 +21,13 @@
 */
 
 #include "AppSettingsDBXMLFileRepository.h"
+#include "AppSettingsDBXMLFileRepositoryImpl.h"
 
 namespace DiplodocusDB
 {
 
 AppSettingsDBXMLFileRepository::AppSettingsDBXMLFileRepository()
+    : m_impl(std::make_unique<AppSettingsDBXMLFileRepositoryImpl>())
 {
 }
 
@@ -33,8 +35,15 @@ AppSettingsDBXMLFileRepository::~AppSettingsDBXMLFileRepository()
 {
 }
 
-void AppSettingsDBXMLFileRepository::open()
+void AppSettingsDBXMLFileRepository::create(const VersionNumber& version,
+                                            const boost::filesystem::path& path)
 {
+    m_impl->create(version, path);
+}
+
+void AppSettingsDBXMLFileRepository::open(const boost::filesystem::path& path)
+{
+    m_impl->open(path);
 }
 
 }

@@ -29,7 +29,7 @@ void AddAppSettingsDBXMLFileRepositoryTests(TestHarness& theTestHarness)
 
     new HeapAllocationErrorsTest("Creation test 1", AppSettingsDBXMLFileRepositoryCreationTest1, repositoryTestSequence);
 
-    new FileComparisonTest("open test 1", AppSettingsDBXMLFileRepositoryOpenTest1, repositoryTestSequence);
+    new FileComparisonTest("create test 1", AppSettingsDBXMLFileRepositoryCreateTest1, repositoryTestSequence);
 }
 
 TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreationTest1()
@@ -38,9 +38,16 @@ TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreationTest1()
     return TestResult::ePassed;
 }
 
-TestResult::EOutcome AppSettingsDBXMLFileRepositoryOpenTest1(FileComparisonTest& test)
+// Test creation of XML file when the file doesn't exist yet
+TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreateTest1(FileComparisonTest& test)
 {
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBXMLFileRepositoryCreateTest1.xml");
+
     DiplodocusDB::AppSettingsDBXMLFileRepository repository;
-    repository.open();
+    repository.create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBXMLFileRepositoryCreateTest1.xml");
+
     return TestResult::ePassed;
 }

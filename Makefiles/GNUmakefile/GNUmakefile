@@ -37,6 +37,8 @@ endif
 # Additionally, this makefile is customizable with the following
 # settings:
 #
+#      BOOST_ROOT              Path to the Boost installation
+#      PUGIXML_ROOT            Path to the pugixml installation
 #      ISHIKO_ERRORS_ROOT      Path to the Ishiko Errors installation
 #      DIPLODOCUSDB_CORE_ROOT  Path to the DiplodocusDB installation
 
@@ -65,6 +67,10 @@ endif
 # Configurable settings:
 # 
 
+# Path to the Boost installation
+BOOST_ROOT ?= $(BOOST)
+# Path to the pugixml installation
+PUGIXML_ROOT ?= $(PUGIXML)
 # Path to the Ishiko Errors installation
 ISHIKO_ERRORS_ROOT ?= $(ISHIKO)/Errors
 # Path to the DiplodocusDB installation
@@ -79,19 +85,19 @@ all: ../Bakefile/../../Lib/lib$(if $(call _equal,$(config),Debug),AppSettingsDB-
 	$(RANLIB) $@
 
 $(_builddir)AppSettingsDB_AppSettingsDB.o: ../../Source/AppSettingsDB.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDB.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -DPUGIXML_HEADER_ONLY -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(PUGIXML_ROOT)/src -I$(BOOST_ROOT) -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDB.cpp
 
 $(_builddir)AppSettingsDB_AppSettingsDBNode.o: ../../Source/AppSettingsDBNode.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBNode.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -DPUGIXML_HEADER_ONLY -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(PUGIXML_ROOT)/src -I$(BOOST_ROOT) -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBNode.cpp
 
 $(_builddir)AppSettingsDB_AppSettingsDBRepository.o: ../../Source/AppSettingsDBRepository.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBRepository.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -DPUGIXML_HEADER_ONLY -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(PUGIXML_ROOT)/src -I$(BOOST_ROOT) -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBRepository.cpp
 
 $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o: ../../Source/AppSettingsDBXMLFileRepository.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBXMLFileRepository.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -DPUGIXML_HEADER_ONLY -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(PUGIXML_ROOT)/src -I$(BOOST_ROOT) -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBXMLFileRepository.cpp
 
 $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o: ../../Source/AppSettingsDBXMLFileRepositoryImpl.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBXMLFileRepositoryImpl.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -DPUGIXML_HEADER_ONLY -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(PUGIXML_ROOT)/src -I$(BOOST_ROOT) -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBXMLFileRepositoryImpl.cpp
 
 clean:
 	rm -f $(_builddir)*.o

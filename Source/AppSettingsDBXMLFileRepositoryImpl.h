@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2017-2018 Xavier Leclercq
+    Copyright (c) 2015-2018 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -23,8 +23,27 @@
 #ifndef _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLFILEREPOSITORYIMPL_H_
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLFILEREPOSITORYIMPL_H_
 
+#include "DiplodocusDB/Core/VersionNumber.h"
+#include <pugixml.hpp>
+#include <boost/filesystem/path.hpp>
+
 namespace DiplodocusDB
 {
+
+class AppSettingsDBXMLFileRepositoryImpl
+{
+public:
+    AppSettingsDBXMLFileRepositoryImpl();
+    ~AppSettingsDBXMLFileRepositoryImpl();
+
+    void create(const VersionNumber& version, const boost::filesystem::path& path);
+    void open(const boost::filesystem::path& path);
+
+private:
+    pugi::xml_document m_document;
+    pugi::xml_node m_rootNode;
+};
+
 }
 
 #endif

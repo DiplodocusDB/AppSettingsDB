@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2017 Xavier Leclercq
+    Copyright (c) 2015-2018 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -24,9 +24,14 @@
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLFILEREPOSITORY_H_
 
 #include "AppSettingsDBRepository.h"
+#include "DiplodocusDB/Core/VersionNumber.h"
+#include <boost/filesystem/path.hpp>
+#include <memory>
 
 namespace DiplodocusDB
 {
+
+class AppSettingsDBXMLFileRepositoryImpl;
 
 class AppSettingsDBXMLFileRepository : public AppSettingsDBRepository
 {
@@ -34,7 +39,11 @@ public:
     AppSettingsDBXMLFileRepository();
     ~AppSettingsDBXMLFileRepository() override;
 
-    void open();
+    void create(const VersionNumber& version, const boost::filesystem::path& path);
+    void open(const boost::filesystem::path& path);
+
+private:
+    std::unique_ptr<AppSettingsDBXMLFileRepositoryImpl> m_impl;
 };
 
 }
