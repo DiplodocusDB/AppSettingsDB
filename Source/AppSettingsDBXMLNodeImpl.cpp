@@ -25,8 +25,9 @@
 namespace DiplodocusDB
 {
 
-AppSettingsDBXMLNodeImpl::AppSettingsDBXMLNodeImpl(const std::string& key)
-    : AppSettingsDBNode(key)
+AppSettingsDBXMLNodeImpl::AppSettingsDBXMLNodeImpl(const std::string& key,
+                                                   pugi::xml_node node)
+    : AppSettingsDBNode(key), m_node(node)
 {
 }
 

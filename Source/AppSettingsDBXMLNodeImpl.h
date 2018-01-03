@@ -24,6 +24,7 @@
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLNODEIMPL_H_
 
 #include "AppSettingsDBNode.h"
+#include <pugixml.hpp>
 
 namespace DiplodocusDB
 {
@@ -31,8 +32,11 @@ namespace DiplodocusDB
 class AppSettingsDBXMLNodeImpl : public AppSettingsDBNode
 {
 public:
-    AppSettingsDBXMLNodeImpl(const std::string& key);
+    AppSettingsDBXMLNodeImpl(const std::string& key, pugi::xml_node node);
     ~AppSettingsDBXMLNodeImpl() override = default;
+
+private:
+    pugi::xml_node m_node;
 };
 
 }
