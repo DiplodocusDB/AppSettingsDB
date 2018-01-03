@@ -23,6 +23,9 @@
 #ifndef _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBREPOSITORY_H_
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBREPOSITORY_H_
 
+#include "AppSettingsDBNode.h"
+#include <memory>
+
 namespace DiplodocusDB
 {
 
@@ -31,6 +34,8 @@ class AppSettingsDBRepository
 public:
     AppSettingsDBRepository();
     virtual ~AppSettingsDBRepository();
+
+    virtual std::shared_ptr<AppSettingsDBNode> createNode(const std::string& key) = 0;
 };
 
 }

@@ -25,6 +25,7 @@
 
 #include "DiplodocusDB/Core/PrimitiveDataTypes.h"
 #include <vector>
+#include <memory>
 
 namespace DiplodocusDB
 {
@@ -40,7 +41,7 @@ public:
     std::string m_key;
     EPrimitiveDataTypes m_dataType;
     std::string m_value;
-    std::vector<AppSettingsDBNode> m_children;
+    std::vector<std::shared_ptr<AppSettingsDBNode> > m_children;
 };
 
 }

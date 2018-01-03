@@ -40,11 +40,11 @@ std::string AppSettingsDB::getString(const std::string& key,
     std::string result;
 
     bool found = false;
-    for (AppSettingsDBNode node : m_root.m_children)
+    for (std::shared_ptr<AppSettingsDBNode> node : m_root.m_children)
     {
-        if (node.m_key == key)
+        if (node->m_key == key)
         {
-            result = node.m_value;
+            result = node->m_value;
             found = true;
         }
     }
@@ -68,9 +68,9 @@ void AppSettingsDB::set(const std::string& key,
 {
     try
     {
-        AppSettingsDBNode newNode(key);
-        newNode.m_dataType = EPrimitiveDataTypes::eUTF8String;
-        newNode.m_value = value;
+        std::shared_ptr<AppSettingsDBNode> newNode = m_repository->createNode(key);
+        newNode->m_dataType = EPrimitiveDataTypes::eUTF8String;
+        newNode->m_value = value;
         m_root.m_children.push_back(newNode);
     }
     catch (...)

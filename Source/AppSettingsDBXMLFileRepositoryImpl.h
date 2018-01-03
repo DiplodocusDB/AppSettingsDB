@@ -23,6 +23,7 @@
 #ifndef _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLFILEREPOSITORYIMPL_H_
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLFILEREPOSITORYIMPL_H_
 
+#include "AppSettingsDBNode.h"
 #include "DiplodocusDB/Core/VersionNumber.h"
 #include <pugixml.hpp>
 #include <boost/filesystem/path.hpp>
@@ -38,6 +39,8 @@ public:
 
     void create(const VersionNumber& version, const boost::filesystem::path& path);
     void open(const boost::filesystem::path& path);
+
+    std::shared_ptr<AppSettingsDBNode> createNode(const std::string& key);
 
 private:
     pugi::xml_document m_document;
