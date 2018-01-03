@@ -23,4 +23,18 @@
 #ifndef _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLNODEIMPL_H_
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLNODEIMPL_H_
 
+#include "AppSettingsDBNode.h"
+
+namespace DiplodocusDB
+{
+
+class AppSettingsDBXMLNodeImpl : public AppSettingsDBNode
+{
+public:
+    AppSettingsDBXMLNodeImpl(const std::string& key);
+    ~AppSettingsDBXMLNodeImpl() override = default;
+};
+
+}
+
 #endif

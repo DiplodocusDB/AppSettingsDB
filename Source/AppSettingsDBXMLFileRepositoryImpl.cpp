@@ -21,6 +21,7 @@
 */
 
 #include "AppSettingsDBXMLFileRepositoryImpl.h"
+#include "AppSettingsDBXMLNodeImpl.h"
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/fstream.hpp>
 
@@ -59,7 +60,7 @@ void AppSettingsDBXMLFileRepositoryImpl::open(const boost::filesystem::path& pat
 
 std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepositoryImpl::createNode(const std::string& key)
 {
-    return std::make_shared<AppSettingsDBNode>(key);
+    return std::make_shared<AppSettingsDBXMLNodeImpl>(key);
 }
 
 }

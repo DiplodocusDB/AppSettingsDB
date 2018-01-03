@@ -34,7 +34,7 @@ class AppSettingsDBNode
 {
 public:
     AppSettingsDBNode(const std::string& key);
-    ~AppSettingsDBNode();
+    virtual ~AppSettingsDBNode();
 
     void setString(const std::string& value);
 

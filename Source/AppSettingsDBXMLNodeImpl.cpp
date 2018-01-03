@@ -21,3 +21,13 @@
 */
 
 #include "AppSettingsDBXMLNodeImpl.h"
+
+namespace DiplodocusDB
+{
+
+AppSettingsDBXMLNodeImpl::AppSettingsDBXMLNodeImpl(const std::string& key)
+    : AppSettingsDBNode(key)
+{
+}
+
+}
