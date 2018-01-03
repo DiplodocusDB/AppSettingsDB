@@ -80,8 +80,8 @@ DIPLODOCUSDB_CORE_ROOT ?= $(DIPLODOCUSDB)/Core
 
 all: ../Bakefile/../../Lib/lib$(if $(call _equal,$(config),Debug),AppSettingsDB-d,AppSettingsDB).a
 
-../Bakefile/../../Lib/lib$(if $(call _equal,$(config),Debug),AppSettingsDB-d,AppSettingsDB).a: $(_builddir)AppSettingsDB_AppSettingsDB.o $(_builddir)AppSettingsDB_AppSettingsDBNode.o $(_builddir)AppSettingsDB_AppSettingsDBRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o
-	$(AR) rcu $@ $(_builddir)AppSettingsDB_AppSettingsDB.o $(_builddir)AppSettingsDB_AppSettingsDBNode.o $(_builddir)AppSettingsDB_AppSettingsDBRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o
+../Bakefile/../../Lib/lib$(if $(call _equal,$(config),Debug),AppSettingsDB-d,AppSettingsDB).a: $(_builddir)AppSettingsDB_AppSettingsDB.o $(_builddir)AppSettingsDB_AppSettingsDBNode.o $(_builddir)AppSettingsDB_AppSettingsDBRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLNodeImpl.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o
+	$(AR) rcu $@ $(_builddir)AppSettingsDB_AppSettingsDB.o $(_builddir)AppSettingsDB_AppSettingsDBNode.o $(_builddir)AppSettingsDB_AppSettingsDBRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLNodeImpl.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o
 	$(RANLIB) $@
 
 $(_builddir)AppSettingsDB_AppSettingsDB.o: ../../Source/AppSettingsDB.cpp
@@ -95,6 +95,9 @@ $(_builddir)AppSettingsDB_AppSettingsDBRepository.o: ../../Source/AppSettingsDBR
 
 $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o: ../../Source/AppSettingsDBXMLFileRepository.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -DPUGIXML_HEADER_ONLY -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(PUGIXML_ROOT)/src -I$(BOOST_ROOT) -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBXMLFileRepository.cpp
+
+$(_builddir)AppSettingsDB_AppSettingsDBXMLNodeImpl.o: ../../Source/AppSettingsDBXMLNodeImpl.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -DPUGIXML_HEADER_ONLY -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(PUGIXML_ROOT)/src -I$(BOOST_ROOT) -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBXMLNodeImpl.cpp
 
 $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o: ../../Source/AppSettingsDBXMLFileRepositoryImpl.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -DPUGIXML_HEADER_ONLY -I$(DIPLODOCUSDB_CORE_ROOT)/Include -I$(ISHIKO_ERRORS_ROOT)/Include -I$(PUGIXML_ROOT)/src -I$(BOOST_ROOT) -I../../Include/DiplodocusDB/AppSettingsDB -std=c++11 ../../Source/AppSettingsDBXMLFileRepositoryImpl.cpp

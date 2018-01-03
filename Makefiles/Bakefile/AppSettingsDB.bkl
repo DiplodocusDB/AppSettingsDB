@@ -43,6 +43,7 @@ library AppSettingsDB : DiplodocusDBCore, IshikoErrors, pugixml, Boost
         ../../Include/DiplodocusDB/AppSettingsDB/AppSettingsDBXMLFileRepository.h
         ../../Include/DiplodocusDB/AppSettingsDB/linkoptions.h
 
+        ../../Source/AppSettingsDBXMLNodeImpl.h
         ../../Source/AppSettingsDBXMLFileRepositoryImpl.h
     }
 
@@ -52,6 +53,7 @@ library AppSettingsDB : DiplodocusDBCore, IshikoErrors, pugixml, Boost
         ../../Source/AppSettingsDBNode.cpp
         ../../Source/AppSettingsDBRepository.cpp
         ../../Source/AppSettingsDBXMLFileRepository.cpp
+        ../../Source/AppSettingsDBXMLNodeImpl.cpp
         ../../Source/AppSettingsDBXMLFileRepositoryImpl.cpp
     }
 }

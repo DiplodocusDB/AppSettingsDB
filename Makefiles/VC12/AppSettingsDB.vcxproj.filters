@@ -35,6 +35,9 @@
     <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\linkoptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\AppSettingsDBXMLNodeImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\AppSettingsDBXMLFileRepositoryImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -50,6 +53,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\AppSettingsDBXMLFileRepository.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AppSettingsDBXMLNodeImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\AppSettingsDBXMLFileRepositoryImpl.cpp">

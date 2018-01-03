@@ -154,6 +154,7 @@
     <ClCompile Include="..\..\Source\AppSettingsDBNode.cpp" />
     <ClCompile Include="..\..\Source\AppSettingsDBRepository.cpp" />
     <ClCompile Include="..\..\Source\AppSettingsDBXMLFileRepository.cpp" />
+    <ClCompile Include="..\..\Source\AppSettingsDBXMLNodeImpl.cpp" />
     <ClCompile Include="..\..\Source\AppSettingsDBXMLFileRepositoryImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +164,7 @@
     <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\AppSettingsDBRepository.h" />
     <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\AppSettingsDBXMLFileRepository.h" />
     <ClInclude Include="..\..\Include\DiplodocusDB\AppSettingsDB\linkoptions.h" />
+    <ClInclude Include="..\..\Source\AppSettingsDBXMLNodeImpl.h" />
     <ClInclude Include="..\..\Source\AppSettingsDBXMLFileRepositoryImpl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
