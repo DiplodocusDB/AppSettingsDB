@@ -41,6 +41,14 @@ void AppSettingsDBXMLNodeImpl::commit()
     {
         valueNode.text().set(m_value.c_str());
     }
+    else if (m_dataType.modifier() == EDataTypeModifier::eList)
+    {
+        for (const std::string& value : m_values)
+        {
+            pugi::xml_node itemNode = valueNode.append_child("item");
+            itemNode.text().set(value.c_str());
+        }
+    }
 
     m_repository->commit();
 }

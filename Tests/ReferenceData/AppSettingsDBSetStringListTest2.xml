@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<application-settings>
+	<version>1.0.0</version>
+	<settings>
+		<key1>
+			<data-type>
+				<primary-data-type>UTF8String</primary-data-type>
+				<modifier>list</modifier>
+			</data-type>
+			<value>
+				<item>value1</item>
+			</value>
+		</key1>
+	</settings>
+</application-settings>

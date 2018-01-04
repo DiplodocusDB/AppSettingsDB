@@ -42,7 +42,7 @@ std::string AppSettingsDB::getString(const std::string& key,
     std::shared_ptr<AppSettingsDBNode> node = m_repository->getNode(key);
     if (node)
     {
-        result = node->m_value;
+        result = node->value();
     }
     else
     {
@@ -77,7 +77,7 @@ void AppSettingsDB::setStringList(const std::string& key,
     try
     {
         std::shared_ptr<AppSettingsDBNode> newNode = m_repository->createNode(key);
-        newNode->m_dataType = DataType(EPrimitiveDataType::eUTF8String, EDataTypeModifier::eList);
+        newNode->setStringList(values);
         newNode->commit();
     }
     catch (...)
@@ -93,8 +93,7 @@ void AppSettingsDB::set(const std::string& key,
     try
     {
         std::shared_ptr<AppSettingsDBNode> newNode = m_repository->createNode(key);
-        newNode->m_dataType = DataType(EPrimitiveDataType::eUTF8String);
-        newNode->m_value = value;
+        newNode->setString(value);
         newNode->commit();
     }
     catch (...)

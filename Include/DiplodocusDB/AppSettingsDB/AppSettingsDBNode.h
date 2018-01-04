@@ -36,14 +36,18 @@ public:
     AppSettingsDBNode(const std::string& key);
     virtual ~AppSettingsDBNode();
 
+    const std::string& value() const;
+
     void setString(const std::string& value);
+    void setStringList(const std::vector<std::string>& values);
 
     virtual void commit() = 0;
 
+protected:
     std::string m_key;
     DataType m_dataType;
     std::string m_value;
-    std::vector<std::shared_ptr<AppSettingsDBNode> > m_children;
+    std::vector<std::string> m_values;
 };
 
 }

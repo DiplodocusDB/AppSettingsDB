@@ -34,10 +34,21 @@ AppSettingsDBNode::~AppSettingsDBNode()
 {
 }
 
+const std::string& AppSettingsDBNode::value() const
+{
+    return m_value;
+}
+
 void AppSettingsDBNode::setString(const std::string& value)
 {
-    m_dataType = EPrimitiveDataType::eUTF8String;
+    m_dataType = DataType(EPrimitiveDataType::eUTF8String);
     m_value = value;
+}
+
+void AppSettingsDBNode::setStringList(const std::vector<std::string>& values)
+{
+    m_dataType = DataType(EPrimitiveDataType::eUTF8String, EDataTypeModifier::eList);
+    m_values = values;
 }
 
 }
