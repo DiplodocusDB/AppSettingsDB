@@ -26,6 +26,7 @@
 #include "AppSettingsDBRepository.h"
 #include "AppSettingsDBNode.h"
 #include "Ishiko/Errors/Error.h"
+#include <vector>
 #include <string>
 #include <memory>
 
@@ -39,12 +40,13 @@ public:
     ~AppSettingsDB();
 
     std::string getString(const std::string& key, Ishiko::Error& error) const;
+    void getStringList(const std::string& key, std::vector<std::string>& values, Ishiko::Error& error) const;
     void setString(const std::string& key, const std::string& value, Ishiko::Error& error);
+    void setStringList(const std::string& key, const std::vector<std::string>& values, Ishiko::Error& error);
     void set(const std::string& key, const std::string& value, Ishiko::Error& error);
 
 private:
     std::shared_ptr<AppSettingsDBRepository> m_repository;
-    std::shared_ptr<AppSettingsDBNode> m_root;
 };
 
 }
