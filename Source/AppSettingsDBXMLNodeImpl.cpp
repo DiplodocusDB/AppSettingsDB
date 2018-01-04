@@ -37,7 +37,10 @@ void AppSettingsDBXMLNodeImpl::commit()
     appendDataTypeNode(m_dataType, m_node);
 
     pugi::xml_node valueNode = m_node.append_child("value");
-    valueNode.text().set(m_value.c_str());
+    if (m_dataType.modifier() == EDataTypeModifier::eNone)
+    {
+        valueNode.text().set(m_value.c_str());
+    }
 
     m_repository->commit();
 }
