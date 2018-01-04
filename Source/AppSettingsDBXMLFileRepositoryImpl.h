@@ -31,7 +31,7 @@
 namespace DiplodocusDB
 {
 
-class AppSettingsDBXMLFileRepositoryImpl
+class AppSettingsDBXMLFileRepositoryImpl : public std::enable_shared_from_this<AppSettingsDBXMLFileRepositoryImpl>
 {
 public:
     AppSettingsDBXMLFileRepositoryImpl();
@@ -42,9 +42,13 @@ public:
 
     std::shared_ptr<AppSettingsDBNode> createNode(const std::string& key);
 
+    void commit();
+
 private:
+    boost::filesystem::path m_path;
     pugi::xml_document m_document;
     pugi::xml_node m_rootNode;
+    pugi::xml_node m_settingsNode;
 };
 
 }

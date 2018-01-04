@@ -26,9 +26,37 @@ namespace DiplodocusDB
 {
 
 AppSettingsDBXMLNodeImpl::AppSettingsDBXMLNodeImpl(const std::string& key,
+                                                   std::shared_ptr<AppSettingsDBXMLFileRepositoryImpl> repository,
                                                    pugi::xml_node node)
-    : AppSettingsDBNode(key), m_node(node)
+    : AppSettingsDBNode(key), m_repository(repository), m_node(node)
 {
+}
+
+void AppSettingsDBXMLNodeImpl::commit()
+{
+    appendDataTypeNode(m_dataType, m_node);
+
+    pugi::xml_node valueNode = m_node.append_child("value");
+    valueNode.text().set(m_value.c_str());
+
+    m_repository->commit();
+}
+
+void AppSettingsDBXMLNodeImpl::appendDataTypeNode(const DataType& type, 
+                                                  pugi::xml_node parentNode)
+{
+    pugi::xml_node typeNode = parentNode.append_child("data-type");
+    pugi::xml_node primitiveTypeNode = typeNode.append_child("primary-data-type");
+
+    std::string primitiveDataTypeString;
+    switch (type.primitiveType())
+    {
+    case EPrimitiveDataType::eUTF8String:
+        primitiveDataTypeString = "UTF8String";
+        break;
+    }
+
+    primitiveTypeNode.text().set(primitiveDataTypeString.c_str());
 }
 
 }

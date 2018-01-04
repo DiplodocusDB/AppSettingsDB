@@ -31,5 +31,6 @@ void AddAppSettingsDBXMLFileRepositoryTests(TestHarness& theTestHarness);
 
 TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreationTest1();
 TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreateTest1(FileComparisonTest& test);
+TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreateNodeTest1(FileComparisonTest& test);
 
 #endif

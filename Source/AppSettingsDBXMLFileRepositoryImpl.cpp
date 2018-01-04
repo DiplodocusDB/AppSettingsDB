@@ -50,7 +50,11 @@ void AppSettingsDBXMLFileRepositoryImpl::create(const VersionNumber& version,
         pugi::xml_node versionNode = m_rootNode.append_child("version");
         versionNode.text().set(version.toString().c_str());
 
+        m_settingsNode = m_rootNode.append_child("settings");
+
         m_document.save(file);
+
+        m_path = path;
     }
 }
 
@@ -60,8 +64,14 @@ void AppSettingsDBXMLFileRepositoryImpl::open(const boost::filesystem::path& pat
 
 std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepositoryImpl::createNode(const std::string& key)
 {
-    pugi::xml_node newNode = m_rootNode.append_child(key.c_str());
-    return std::make_shared<AppSettingsDBXMLNodeImpl>(key, newNode);
+    pugi::xml_node newNode = m_settingsNode.append_child(key.c_str());
+    return std::make_shared<AppSettingsDBXMLNodeImpl>(key, shared_from_this(), newNode);
+}
+
+void AppSettingsDBXMLFileRepositoryImpl::commit()
+{
+    boost::filesystem::ofstream file(m_path);
+    m_document.save(file);
 }
 
 }

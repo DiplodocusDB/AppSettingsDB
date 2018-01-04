@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2017 Xavier Leclercq
+    Copyright (c) 2015-2018 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -26,7 +26,7 @@ namespace DiplodocusDB
 {
 
 AppSettingsDBNode::AppSettingsDBNode(const std::string& key)
-    : m_key(key), m_dataType(EPrimitiveDataTypes::eNULL)
+    : m_key(key), m_dataType(EPrimitiveDataType::eNULL)
 {
 }
 
@@ -36,7 +36,7 @@ AppSettingsDBNode::~AppSettingsDBNode()
 
 void AppSettingsDBNode::setString(const std::string& value)
 {
-    m_dataType = EPrimitiveDataTypes::eUTF8String;
+    m_dataType = EPrimitiveDataType::eUTF8String;
     m_value = value;
 }
 

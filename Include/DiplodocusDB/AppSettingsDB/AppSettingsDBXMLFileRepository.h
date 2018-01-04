@@ -45,7 +45,9 @@ public:
     std::shared_ptr<AppSettingsDBNode> createNode(const std::string& key) override;
 
 private:
-    std::unique_ptr<AppSettingsDBXMLFileRepositoryImpl> m_impl;
+    // This is a shared_ptr and not a unique_ptr because the node will
+    // also have shared_ptr to this.
+    std::shared_ptr<AppSettingsDBXMLFileRepositoryImpl> m_impl;
 };
 
 }

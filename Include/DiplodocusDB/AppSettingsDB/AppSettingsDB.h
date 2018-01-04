@@ -44,7 +44,7 @@ public:
 
 private:
     std::shared_ptr<AppSettingsDBRepository> m_repository;
-    AppSettingsDBNode m_root;
+    std::shared_ptr<AppSettingsDBNode> m_root;
 };
 
 }

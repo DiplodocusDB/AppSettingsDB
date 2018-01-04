@@ -24,6 +24,7 @@
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBXMLNODEIMPL_H_
 
 #include "AppSettingsDBNode.h"
+#include "AppSettingsDBXMLFileRepositoryImpl.h"
 #include <pugixml.hpp>
 
 namespace DiplodocusDB
@@ -32,10 +33,17 @@ namespace DiplodocusDB
 class AppSettingsDBXMLNodeImpl : public AppSettingsDBNode
 {
 public:
-    AppSettingsDBXMLNodeImpl(const std::string& key, pugi::xml_node node);
+    AppSettingsDBXMLNodeImpl(const std::string& key, std::shared_ptr<AppSettingsDBXMLFileRepositoryImpl> repository,
+        pugi::xml_node node);
     ~AppSettingsDBXMLNodeImpl() override = default;
 
+    void commit() override;
+
 private:
+    static void appendDataTypeNode(const DataType& type, pugi::xml_node parentNode);
+
+private:
+    std::shared_ptr<AppSettingsDBXMLFileRepositoryImpl> m_repository;
     pugi::xml_node m_node;
 };
 

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2017 Xavier Leclercq
+    Copyright (c) 2015-2018 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -23,7 +23,7 @@
 #ifndef _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBNODE_H_
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBNODE_H_
 
-#include "DiplodocusDB/Core/PrimitiveDataTypes.h"
+#include "DiplodocusDB/Core/DataType.h"
 #include <vector>
 #include <memory>
 
@@ -38,8 +38,10 @@ public:
 
     void setString(const std::string& value);
 
+    virtual void commit() = 0;
+
     std::string m_key;
-    EPrimitiveDataTypes m_dataType;
+    DataType m_dataType;
     std::string m_value;
     std::vector<std::shared_ptr<AppSettingsDBNode> > m_children;
 };

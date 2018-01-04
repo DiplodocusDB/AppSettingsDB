@@ -30,6 +30,8 @@ void AddAppSettingsDBXMLFileRepositoryTests(TestHarness& theTestHarness)
     new HeapAllocationErrorsTest("Creation test 1", AppSettingsDBXMLFileRepositoryCreationTest1, repositoryTestSequence);
 
     new FileComparisonTest("create test 1", AppSettingsDBXMLFileRepositoryCreateTest1, repositoryTestSequence);
+
+    new FileComparisonTest("createNode test 1", AppSettingsDBXMLFileRepositoryCreateNodeTest1, repositoryTestSequence);
 }
 
 TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreationTest1()
@@ -48,6 +50,25 @@ TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreateTest1(FileComparisonTes
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBXMLFileRepositoryCreateTest1.xml");
+
+    return TestResult::ePassed;
+}
+
+TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreateNodeTest1(FileComparisonTest& test)
+{
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBXMLFileRepositoryCreateNodeTest1.xml");
+
+    DiplodocusDB::AppSettingsDBXMLFileRepository repository;
+    repository.create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
+    std::shared_ptr<DiplodocusDB::AppSettingsDBNode> node = repository.createNode("node1");
+    if (node)
+    {
+        node->setString("value1");
+        node->commit();
+    }
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBXMLFileRepositoryCreateNodeTest1.xml");
 
     return TestResult::ePassed;
 }

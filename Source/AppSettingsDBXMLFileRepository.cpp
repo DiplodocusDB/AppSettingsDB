@@ -27,7 +27,7 @@ namespace DiplodocusDB
 {
 
 AppSettingsDBXMLFileRepository::AppSettingsDBXMLFileRepository()
-    : m_impl(std::make_unique<AppSettingsDBXMLFileRepositoryImpl>())
+    : m_impl(std::make_shared<AppSettingsDBXMLFileRepositoryImpl>())
 {
 }
 
