@@ -2,11 +2,6 @@
 <application-settings>
 	<version>1.0.0</version>
 	<settings>
-		<node1>
-			<data-type>
-				<primary-data-type>UTF8String</primary-data-type>
-			</data-type>
-			<value>value1</value>
-		</node1>
+		<node1>value1</node1>
 	</settings>
 </application-settings>
