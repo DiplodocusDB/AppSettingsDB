@@ -78,6 +78,7 @@ void AppSettingsDB::setStringList(const std::string& key,
     {
         std::shared_ptr<AppSettingsDBNode> newNode = m_repository->createNode(key);
         newNode->m_dataType = DataType(EPrimitiveDataType::eUTF8String, EDataTypeModifier::eList);
+        newNode->commit();
     }
     catch (...)
     {

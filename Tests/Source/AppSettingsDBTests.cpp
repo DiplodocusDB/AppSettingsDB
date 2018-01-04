@@ -115,7 +115,11 @@ TestResult::EOutcome AppSettingsDBSetStringListTest1(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBSetStringListTest1.xml");
+
     std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    repository->create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
+
     DiplodocusDB::AppSettingsDB appSettings(repository);
 
     Ishiko::Error error;
@@ -130,6 +134,9 @@ TestResult::EOutcome AppSettingsDBSetStringListTest1(FileComparisonTest& test)
             result = TestResult::ePassed;
         }
     }
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetStringListTest1.xml");
 
     return result;
 }

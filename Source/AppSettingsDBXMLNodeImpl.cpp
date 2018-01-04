@@ -55,8 +55,20 @@ void AppSettingsDBXMLNodeImpl::appendDataTypeNode(const DataType& type,
         primitiveDataTypeString = "UTF8String";
         break;
     }
-
     primitiveTypeNode.text().set(primitiveDataTypeString.c_str());
+
+    std::string modifierString;
+    switch (type.modifier())
+    {
+    case EDataTypeModifier::eList:
+        modifierString = "list";
+        break;
+    }
+    if (!modifierString.empty())
+    {
+        pugi::xml_node modifierNode = typeNode.append_child("modifier");
+        modifierNode.text().set(modifierString.c_str());
+    }
 }
 
 }
