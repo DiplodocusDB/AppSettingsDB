@@ -56,7 +56,7 @@ void AppSettingsDB::getStringList(const std::string& key,
                                   std::vector<std::string>& values,
                                   Ishiko::Error& error) const
 {
-    std::shared_ptr<AppSettingsDBNode> node = m_repository->getNode(key);
+    std::shared_ptr<AppSettingsDBNode> node = m_repository->getListNode(key);
     if (node)
     {
         values.insert(values.end(), node->values().begin(), node->values().end());

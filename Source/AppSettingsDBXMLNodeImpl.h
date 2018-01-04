@@ -40,9 +40,6 @@ public:
     void commit() override;
 
 private:
-    static void appendDataTypeNode(const DataType& type, pugi::xml_node parentNode);
-
-private:
     std::shared_ptr<AppSettingsDBXMLFileRepositoryImpl> m_repository;
     pugi::xml_node m_node;
 };

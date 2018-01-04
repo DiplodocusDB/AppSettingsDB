@@ -34,52 +34,20 @@ AppSettingsDBXMLNodeImpl::AppSettingsDBXMLNodeImpl(const std::string& key,
 
 void AppSettingsDBXMLNodeImpl::commit()
 {
-    appendDataTypeNode(m_dataType, m_node);
-
-    pugi::xml_node valueNode = m_node.append_child("value");
     if (m_dataType.modifier() == EDataTypeModifier::eNone)
     {
-        valueNode.text().set(m_value.c_str());
+        m_node.text().set(m_value.c_str());
     }
     else if (m_dataType.modifier() == EDataTypeModifier::eList)
     {
         for (const std::string& value : m_values)
         {
-            pugi::xml_node itemNode = valueNode.append_child("item");
+            pugi::xml_node itemNode = m_node.append_child("item");
             itemNode.text().set(value.c_str());
         }
     }
 
     m_repository->commit();
-}
-
-void AppSettingsDBXMLNodeImpl::appendDataTypeNode(const DataType& type, 
-                                                  pugi::xml_node parentNode)
-{
-    pugi::xml_node typeNode = parentNode.append_child("data-type");
-    pugi::xml_node primitiveTypeNode = typeNode.append_child("primary-data-type");
-
-    std::string primitiveDataTypeString;
-    switch (type.primitiveType())
-    {
-    case EPrimitiveDataType::eUTF8String:
-        primitiveDataTypeString = "UTF8String";
-        break;
-    }
-    primitiveTypeNode.text().set(primitiveDataTypeString.c_str());
-
-    std::string modifierString;
-    switch (type.modifier())
-    {
-    case EDataTypeModifier::eList:
-        modifierString = "list";
-        break;
-    }
-    if (!modifierString.empty())
-    {
-        pugi::xml_node modifierNode = typeNode.append_child("modifier");
-        modifierNode.text().set(modifierString.c_str());
-    }
 }
 
 }
