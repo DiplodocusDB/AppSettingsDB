@@ -37,6 +37,7 @@ public:
     virtual ~AppSettingsDBNode();
 
     const std::string& value() const;
+    const std::vector<std::string>& values() const;
 
     void setString(const std::string& value);
     void setStringList(const std::vector<std::string>& values);

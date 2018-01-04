@@ -39,6 +39,11 @@ const std::string& AppSettingsDBNode::value() const
     return m_value;
 }
 
+const std::vector<std::string>& AppSettingsDBNode::values() const
+{
+    return m_values;
+}
+
 void AppSettingsDBNode::setString(const std::string& value)
 {
     m_dataType = DataType(EPrimitiveDataType::eUTF8String);

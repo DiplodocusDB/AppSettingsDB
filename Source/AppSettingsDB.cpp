@@ -59,7 +59,11 @@ void AppSettingsDB::getStringList(const std::string& key,
     std::shared_ptr<AppSettingsDBNode> node = m_repository->getNode(key);
     if (node)
     {
-        
+        values.insert(values.end(), node->values().begin(), node->values().end());
+    }
+    else
+    {
+        error = -1;
     }
 }
 
