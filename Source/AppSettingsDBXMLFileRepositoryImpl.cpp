@@ -62,6 +62,15 @@ void AppSettingsDBXMLFileRepositoryImpl::open(const boost::filesystem::path& pat
 {
 }
 
+std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepositoryImpl::getNode(const std::string& key)
+{
+    std::shared_ptr<AppSettingsDBXMLNodeImpl> result;
+    pugi::xml_node node = m_settingsNode.child(key.c_str());
+    result = std::make_shared<AppSettingsDBXMLNodeImpl>(key, shared_from_this(), node);
+    result->setString(node.child("value").text().as_string());
+    return result;
+}
+
 std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepositoryImpl::createNode(const std::string& key)
 {
     pugi::xml_node newNode = m_settingsNode.append_child(key.c_str());

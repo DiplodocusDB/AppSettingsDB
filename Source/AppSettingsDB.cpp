@@ -26,7 +26,7 @@ namespace DiplodocusDB
 {
 
 AppSettingsDB::AppSettingsDB(std::shared_ptr<AppSettingsDBRepository> repository)
-    : m_repository(repository), m_root(m_repository->createNode("root"))
+    : m_repository(repository)
 {
 }
 
@@ -39,20 +39,28 @@ std::string AppSettingsDB::getString(const std::string& key,
 {
     std::string result;
 
-    bool found = false;
-    for (std::shared_ptr<AppSettingsDBNode> node : m_root->m_children)
+    std::shared_ptr<AppSettingsDBNode> node = m_repository->getNode(key);
+    if (node)
     {
-        if (node->m_key == key)
-        {
-            result = node->m_value;
-            found = true;
-        }
+        result = node->m_value;
     }
-    if (!found)
+    else
     {
         error = -1;
     }
+
     return result;
+}
+
+void AppSettingsDB::getStringList(const std::string& key,
+                                  std::vector<std::string>& values,
+                                  Ishiko::Error& error) const
+{
+    std::shared_ptr<AppSettingsDBNode> node = m_repository->getNode(key);
+    if (node)
+    {
+        
+    }
 }
 
 void AppSettingsDB::setString(const std::string& key,
@@ -62,6 +70,21 @@ void AppSettingsDB::setString(const std::string& key,
     set(key, value, error);
 }
 
+void AppSettingsDB::setStringList(const std::string& key,
+                                  const std::vector<std::string>& values,
+                                  Ishiko::Error& error)
+{
+    try
+    {
+        std::shared_ptr<AppSettingsDBNode> newNode = m_repository->createNode(key);
+        newNode->m_dataType = DataType(EPrimitiveDataType::eUTF8String, EDataTypeModifier::eList);
+    }
+    catch (...)
+    {
+        error = -1;
+    }
+}
+
 void AppSettingsDB::set(const std::string& key,
                         const std::string& value,
                         Ishiko::Error& error)
@@ -69,9 +92,9 @@ void AppSettingsDB::set(const std::string& key,
     try
     {
         std::shared_ptr<AppSettingsDBNode> newNode = m_repository->createNode(key);
-        newNode->m_dataType = EPrimitiveDataType::eUTF8String;
+        newNode->m_dataType = DataType(EPrimitiveDataType::eUTF8String);
         newNode->m_value = value;
-        m_root->m_children.push_back(newNode);
+        newNode->commit();
     }
     catch (...)
     {
