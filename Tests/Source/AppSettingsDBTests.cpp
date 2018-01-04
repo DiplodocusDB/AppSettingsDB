@@ -29,8 +29,8 @@ void AddAppSettingsDBTests(TestHarness& theTestHarness)
     TestSequence& appSettingsDBTestSequence = theTestHarness.appendTestSequence("AppSettingsDB tests");
 
     new FileComparisonTest("Creation test 1", AppSettingsDBCreationTest1, appSettingsDBTestSequence);
-    
-    new FileComparisonTest("set test 1", AppSettingsDBSetTest1, appSettingsDBTestSequence);
+
+    new FileComparisonTest("setBool test 1", AppSettingsDBSetBoolTest1, appSettingsDBTestSequence);
 
     new FileComparisonTest("setString test 1", AppSettingsDBSetStringTest1, appSettingsDBTestSequence);
 
@@ -53,11 +53,11 @@ TestResult::EOutcome AppSettingsDBCreationTest1(FileComparisonTest& test)
     return TestResult::ePassed;
 }
 
-TestResult::EOutcome AppSettingsDBSetTest1(FileComparisonTest& test)
+TestResult::EOutcome AppSettingsDBSetBoolTest1(FileComparisonTest& test)
 {
     TestResult::EOutcome result = TestResult::eFailed;
 
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBSetTest1.xml");
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBSetBoolTest1.xml");
 
     std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
     repository->create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
@@ -65,19 +65,19 @@ TestResult::EOutcome AppSettingsDBSetTest1(FileComparisonTest& test)
     DiplodocusDB::AppSettingsDB appSettings(repository);
 
     Ishiko::Error error;
-    appSettings.set("key1", "value1", error);
+    appSettings.setBool("key1", true, error);
 
     if (!error)
     {
-        std::string value = appSettings.getString("key1", error);
-        if (!error && (value == "value1"))
+        bool value = appSettings.getBool("key1", error);
+        if (!error && (value == true))
         {
             result = TestResult::ePassed;
         }
     }
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetTest1.xml");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetBoolTest1.xml");
 
     return result;
 }

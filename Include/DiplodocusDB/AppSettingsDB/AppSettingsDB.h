@@ -39,10 +39,15 @@ public:
     AppSettingsDB(std::shared_ptr<AppSettingsDBRepository> repository);
     ~AppSettingsDB();
 
+    bool getBool(const std::string& key, Ishiko::Error& error) const;
     std::string getString(const std::string& key, Ishiko::Error& error) const;
     void getStringList(const std::string& key, std::vector<std::string>& values, Ishiko::Error& error) const;
+    
+    void setBool(const std::string& key, bool value, Ishiko::Error& error);
     void setString(const std::string& key, const std::string& value, Ishiko::Error& error);
     void setStringList(const std::string& key, const std::vector<std::string>& values, Ishiko::Error& error);
+
+private:
     void set(const std::string& key, const std::string& value, Ishiko::Error& error);
 
 private:

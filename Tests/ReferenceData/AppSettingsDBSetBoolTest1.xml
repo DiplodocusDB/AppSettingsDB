@@ -2,6 +2,6 @@
 <application-settings>
 	<version>1.0.0</version>
 	<settings>
-		<key1>value1</key1>
+		<key1>true</key1>
 	</settings>
 </application-settings>

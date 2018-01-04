@@ -34,6 +34,24 @@ AppSettingsDB::~AppSettingsDB()
 {
 }
 
+bool AppSettingsDB::getBool(const std::string& key,
+                            Ishiko::Error& error) const
+{
+    bool result;
+
+    std::shared_ptr<AppSettingsDBNode> node = m_repository->getNode(key);
+    if (node)
+    {
+        result = (node->value() == "true");
+    }
+    else
+    {
+        error = -1;
+    }
+
+    return result;
+}
+
 std::string AppSettingsDB::getString(const std::string& key,
                                      Ishiko::Error& error) const
 {
@@ -65,6 +83,13 @@ void AppSettingsDB::getStringList(const std::string& key,
     {
         error = -1;
     }
+}
+
+void AppSettingsDB::setBool(const std::string& key,
+                            bool value, 
+                            Ishiko::Error& error)
+{
+    set(key, (value ? "true" : "false"), error);
 }
 
 void AppSettingsDB::setString(const std::string& key,
