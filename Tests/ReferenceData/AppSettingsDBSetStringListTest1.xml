@@ -2,12 +2,6 @@
 <application-settings>
 	<version>1.0.0</version>
 	<settings>
-		<key1>
-			<data-type>
-				<primary-data-type>UTF8String</primary-data-type>
-				<modifier>list</modifier>
-			</data-type>
-			<value />
-		</key1>
+		<key1 />
 	</settings>
 </application-settings>
