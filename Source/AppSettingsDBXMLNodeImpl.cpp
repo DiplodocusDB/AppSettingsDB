@@ -64,4 +64,20 @@ std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLNodeImpl::getNode(const std::
     return result;
 }
 
+std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLNodeImpl::getListNode(const std::string& key)
+{
+    std::shared_ptr<AppSettingsDBXMLNodeImpl> result;
+    pugi::xml_node node = m_node.child(key.c_str());
+    result = std::make_shared<AppSettingsDBXMLNodeImpl>(key, m_repository, node);
+
+    std::vector<std::string> values;
+    for (pugi::xml_node item : node.children("item"))
+    {
+        values.push_back(item.text().as_string());
+    }
+    result->setStringList(values);
+
+    return result;
+}
+
 }
