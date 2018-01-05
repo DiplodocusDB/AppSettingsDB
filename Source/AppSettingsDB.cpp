@@ -98,20 +98,4 @@ void AppSettingsDB::setParentNode(const std::string& key,
     }
 }
 
-void AppSettingsDB::set(const std::string& key,
-                        const std::string& value,
-                        Ishiko::Error& error)
-{
-    try
-    {
-        std::shared_ptr<AppSettingsDBNode> newNode = m_repository->createNode(key);
-        newNode->setString(value);
-        newNode->commit();
-    }
-    catch (...)
-    {
-        error = -1;
-    }
-}
-
 }

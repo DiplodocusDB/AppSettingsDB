@@ -52,9 +52,6 @@ public:
     void setParentNode(const std::string& key, Ishiko::Error& error);
 
 private:
-    void set(const std::string& key, const std::string& value, Ishiko::Error& error);
-
-private:
     std::shared_ptr<AppSettingsDBRepository> m_repository;
 };
 
