@@ -37,37 +37,13 @@ AppSettingsDB::~AppSettingsDB()
 bool AppSettingsDB::getBool(const std::string& key,
                             Ishiko::Error& error) const
 {
-    bool result;
-
-    std::shared_ptr<AppSettingsDBNode> node = m_repository->getNode(key);
-    if (node)
-    {
-        result = (node->value() == "true");
-    }
-    else
-    {
-        error = -1;
-    }
-
-    return result;
+    return m_repository->root()->getBool(key, error);
 }
 
 std::string AppSettingsDB::getString(const std::string& key,
                                      Ishiko::Error& error) const
 {
-    std::string result;
-
-    std::shared_ptr<AppSettingsDBNode> node = m_repository->getNode(key);
-    if (node)
-    {
-        result = node->value();
-    }
-    else
-    {
-        error = -1;
-    }
-
-    return result;
+    return m_repository->root()->getString(key, error);
 }
 
 void AppSettingsDB::getStringList(const std::string& key,
@@ -106,7 +82,7 @@ void AppSettingsDB::setString(const std::string& key,
                               const std::string& value,
                               Ishiko::Error& error)
 {
-    set(key, value, error);
+    m_repository->root()->setString(key, value, error);
 }
 
 void AppSettingsDB::setStringList(const std::string& key,

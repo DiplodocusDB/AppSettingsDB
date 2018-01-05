@@ -44,8 +44,10 @@ public:
     void setStringList(const std::vector<std::string>& values);
 
     bool getBool(const std::string& key, Ishiko::Error& error) const;
+    std::string getString(const std::string& key, Ishiko::Error& error) const;
 
     void setBool(const std::string& key, bool value, Ishiko::Error& error);
+    void setString(const std::string& key, const std::string& value, Ishiko::Error& error);
 
     virtual void commit() = 0;
 
