@@ -44,8 +44,6 @@ public:
 
     std::shared_ptr<AppSettingsDBNode> root() override;
 
-    std::shared_ptr<AppSettingsDBNode> getNode(const std::string& key) override;
-    std::shared_ptr<AppSettingsDBNode> getListNode(const std::string& key) override;
     std::shared_ptr<AppSettingsDBNode> getParentNode(const std::string& key) override;
 
     std::shared_ptr<AppSettingsDBNode> createNode(const std::string& key) override;

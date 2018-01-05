@@ -67,31 +67,6 @@ std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepositoryImpl::root()
     return std::make_shared<AppSettingsDBXMLNodeImpl>("", shared_from_this(), m_settingsNode);
 }
 
-std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepositoryImpl::getNode(const std::string& key)
-{
-    std::shared_ptr<AppSettingsDBXMLNodeImpl> result;
-    pugi::xml_node node = m_settingsNode.child(key.c_str());
-    result = std::make_shared<AppSettingsDBXMLNodeImpl>(key, shared_from_this(), node);
-    result->setString(node.text().as_string());
-    return result;
-}
-
-std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepositoryImpl::getListNode(const std::string& key)
-{
-    std::shared_ptr<AppSettingsDBXMLNodeImpl> result;
-    pugi::xml_node node = m_settingsNode.child(key.c_str());
-    result = std::make_shared<AppSettingsDBXMLNodeImpl>(key, shared_from_this(), node);
-    
-    std::vector<std::string> values;
-    for (pugi::xml_node item : node.children("item"))
-    {
-        values.push_back(item.text().as_string());
-    }
-    result->setStringList(values);
-
-    return result;
-}
-
 std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepositoryImpl::getParentNode(const std::string& key)
 {
     std::shared_ptr<AppSettingsDBXMLNodeImpl> result;
