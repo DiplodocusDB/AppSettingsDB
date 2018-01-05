@@ -52,7 +52,8 @@ void AppSettingsDBXMLNodeImpl::commit()
 
 std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLNodeImpl::createNode(const std::string& key)
 {
-    return m_repository->createNode(key);
+    pugi::xml_node newNode = m_node.append_child(key.c_str());
+    return std::make_shared<AppSettingsDBXMLNodeImpl>(key, m_repository, newNode);
 }
 
 std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLNodeImpl::getNode(const std::string& key)
@@ -77,6 +78,14 @@ std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLNodeImpl::getListNode(const s
     }
     result->setStringList(values);
 
+    return result;
+}
+
+std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLNodeImpl::getParentNode(const std::string& key)
+{
+    std::shared_ptr<AppSettingsDBXMLNodeImpl> result;
+    pugi::xml_node node = m_node.child(key.c_str());
+    result = std::make_shared<AppSettingsDBXMLNodeImpl>(key, m_repository, node);
     return result;
 }
 

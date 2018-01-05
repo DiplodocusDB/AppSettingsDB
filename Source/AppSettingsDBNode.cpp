@@ -107,6 +107,17 @@ void AppSettingsDBNode::getStringList(const std::string& key,
     }
 }
 
+std::shared_ptr<AppSettingsDBNode> AppSettingsDBNode::getParentNode(const std::string& key,
+                                                                    Ishiko::Error& error)
+{
+    std::shared_ptr<AppSettingsDBNode> node = const_cast<AppSettingsDBNode*>(this)->getParentNode(key);
+    if (!node)
+    {
+        error = -1;
+    }
+    return node;
+}
+
 void AppSettingsDBNode::setBool(const std::string& key,
                                 bool value,
                                 Ishiko::Error& error)
@@ -129,6 +140,20 @@ void AppSettingsDBNode::setStringList(const std::string& key,
     {
         std::shared_ptr<AppSettingsDBNode> newNode = createNode(key);
         newNode->setStringList(values);
+        newNode->commit();
+    }
+    catch (...)
+    {
+        error = -1;
+    }
+}
+
+void AppSettingsDBNode::setParentNode(const std::string& key,
+                                      Ishiko::Error& error)
+{
+    try
+    {
+        std::shared_ptr<AppSettingsDBNode> newNode = createNode(key);
         newNode->commit();
     }
     catch (...)

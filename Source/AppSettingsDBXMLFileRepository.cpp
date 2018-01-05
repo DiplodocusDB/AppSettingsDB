@@ -51,14 +51,4 @@ std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepository::root()
     return m_impl->root();
 }
 
-std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepository::getParentNode(const std::string& key)
-{
-    return m_impl->getParentNode(key);
-}
-
-std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepository::createNode(const std::string& key)
-{
-    return m_impl->createNode(key);
-}
-
 }

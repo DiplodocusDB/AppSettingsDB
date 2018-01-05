@@ -47,9 +47,13 @@ public:
     std::string getString(const std::string& key, Ishiko::Error& error) const;
     void getStringList(const std::string& key, std::vector<std::string>& values, Ishiko::Error& error) const;
 
+    std::shared_ptr<AppSettingsDBNode> getParentNode(const std::string& key, Ishiko::Error& error);
+
     void setBool(const std::string& key, bool value, Ishiko::Error& error);
     void setString(const std::string& key, const std::string& value, Ishiko::Error& error);
     void setStringList(const std::string& key, const std::vector<std::string>& values, Ishiko::Error& error);
+
+    void setParentNode(const std::string& key, Ishiko::Error& error);
 
     virtual void commit() = 0;
 
@@ -59,6 +63,7 @@ private:
     virtual std::shared_ptr<AppSettingsDBNode> createNode(const std::string& key) = 0;
     virtual std::shared_ptr<AppSettingsDBNode> getNode(const std::string& key) = 0;
     virtual std::shared_ptr<AppSettingsDBNode> getListNode(const std::string& key) = 0;
+    virtual std::shared_ptr<AppSettingsDBNode> getParentNode(const std::string& key) = 0;
 
 protected:
     std::string m_key;
