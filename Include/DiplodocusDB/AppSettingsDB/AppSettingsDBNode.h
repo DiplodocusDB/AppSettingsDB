@@ -24,6 +24,7 @@
 #define _DIPLODOCUSDB_APPSETTINGSDB_APPSETTINGSDBNODE_H_
 
 #include "DiplodocusDB/Core/DataType.h"
+#include "Ishiko/Errors/Error.h"
 #include <vector>
 #include <memory>
 
@@ -42,7 +43,17 @@ public:
     void setString(const std::string& value);
     void setStringList(const std::vector<std::string>& values);
 
+    bool getBool(const std::string& key, Ishiko::Error& error) const;
+
+    void setBool(const std::string& key, bool value, Ishiko::Error& error);
+
     virtual void commit() = 0;
+
+private:
+    void set(const std::string& key, const std::string& value, Ishiko::Error& error);
+
+    virtual std::shared_ptr<AppSettingsDBNode> createNode(const std::string& key) = 0;
+    virtual std::shared_ptr<AppSettingsDBNode> getNode(const std::string& key) = 0;
 
 protected:
     std::string m_key;

@@ -56,4 +56,45 @@ void AppSettingsDBNode::setStringList(const std::vector<std::string>& values)
     m_values = values;
 }
 
+bool AppSettingsDBNode::getBool(const std::string& key,
+                                Ishiko::Error& error) const
+{
+    bool result;
+
+    std::shared_ptr<AppSettingsDBNode> node = const_cast<AppSettingsDBNode*>(this)->getNode(key);
+    if (node)
+    {
+        result = (node->value() == "true");
+    }
+    else
+    {
+        error = -1;
+    }
+
+    return result;
+}
+
+void AppSettingsDBNode::setBool(const std::string& key,
+                                bool value,
+                                Ishiko::Error& error)
+{
+    set(key, (value ? "true" : "false"), error);
+}
+
+void AppSettingsDBNode::set(const std::string& key,
+                            const std::string& value,
+                            Ishiko::Error& error)
+{
+    try
+    {
+        std::shared_ptr<AppSettingsDBNode> newNode = createNode(key);
+        newNode->setString(value);
+        newNode->commit();
+    }
+    catch (...)
+    {
+        error = -1;
+    }
+}
+
 }

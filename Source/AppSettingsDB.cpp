@@ -99,7 +99,7 @@ void AppSettingsDB::setBool(const std::string& key,
                             bool value, 
                             Ishiko::Error& error)
 {
-    set(key, (value ? "true" : "false"), error);
+    m_repository->root()->setBool(key, value, error);
 }
 
 void AppSettingsDB::setString(const std::string& key,

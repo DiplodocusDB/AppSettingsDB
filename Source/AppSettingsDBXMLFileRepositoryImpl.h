@@ -40,6 +40,8 @@ public:
     void create(const VersionNumber& version, const boost::filesystem::path& path);
     void open(const boost::filesystem::path& path);
 
+    std::shared_ptr<AppSettingsDBNode> root();
+
     std::shared_ptr<AppSettingsDBNode> getNode(const std::string& key);
     std::shared_ptr<AppSettingsDBNode> getListNode(const std::string& key);
     std::shared_ptr<AppSettingsDBNode> getParentNode(const std::string& key);

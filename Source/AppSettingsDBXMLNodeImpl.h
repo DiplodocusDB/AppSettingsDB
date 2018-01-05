@@ -40,6 +40,10 @@ public:
     void commit() override;
 
 private:
+    std::shared_ptr<AppSettingsDBNode> createNode(const std::string& key) override;
+    std::shared_ptr<AppSettingsDBNode> getNode(const std::string& key) override;
+
+private:
     std::shared_ptr<AppSettingsDBXMLFileRepositoryImpl> m_repository;
     pugi::xml_node m_node;
 };
