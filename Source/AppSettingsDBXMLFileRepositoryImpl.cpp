@@ -87,6 +87,14 @@ std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepositoryImpl::getListNo
     return result;
 }
 
+std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepositoryImpl::getParentNode(const std::string& key)
+{
+    std::shared_ptr<AppSettingsDBXMLNodeImpl> result;
+    pugi::xml_node node = m_settingsNode.child(key.c_str());
+    result = std::make_shared<AppSettingsDBXMLNodeImpl>(key, shared_from_this(), node);
+    return result;
+}
+
 std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepositoryImpl::createNode(const std::string& key)
 {
     pugi::xml_node newNode = m_settingsNode.append_child(key.c_str());

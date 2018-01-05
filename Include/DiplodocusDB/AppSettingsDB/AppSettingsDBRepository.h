@@ -37,6 +37,7 @@ public:
 
     virtual std::shared_ptr<AppSettingsDBNode> getNode(const std::string& key) = 0;
     virtual std::shared_ptr<AppSettingsDBNode> getListNode(const std::string& key) = 0;
+    virtual std::shared_ptr<AppSettingsDBNode> getParentNode(const std::string& key) = 0;
 
     virtual std::shared_ptr<AppSettingsDBNode> createNode(const std::string& key) = 0;
 };

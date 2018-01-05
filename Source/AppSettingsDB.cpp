@@ -85,6 +85,16 @@ void AppSettingsDB::getStringList(const std::string& key,
     }
 }
 
+std::shared_ptr<AppSettingsDBNode> AppSettingsDB::getParentNode(const std::string& key, Ishiko::Error& error)
+{
+    std::shared_ptr<AppSettingsDBNode> node = m_repository->getParentNode(key);
+    if (!node)
+    {
+        error = -1;
+    }
+    return node;
+}
+
 void AppSettingsDB::setBool(const std::string& key,
                             bool value, 
                             Ishiko::Error& error)
@@ -107,6 +117,20 @@ void AppSettingsDB::setStringList(const std::string& key,
     {
         std::shared_ptr<AppSettingsDBNode> newNode = m_repository->createNode(key);
         newNode->setStringList(values);
+        newNode->commit();
+    }
+    catch (...)
+    {
+        error = -1;
+    }
+}
+
+void AppSettingsDB::setParentNode(const std::string& key,
+                                  Ishiko::Error& error)
+{
+    try
+    {
+        std::shared_ptr<AppSettingsDBNode> newNode = m_repository->createNode(key);
         newNode->commit();
     }
     catch (...)

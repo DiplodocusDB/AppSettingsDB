@@ -42,6 +42,7 @@ public:
 
     std::shared_ptr<AppSettingsDBNode> getNode(const std::string& key);
     std::shared_ptr<AppSettingsDBNode> getListNode(const std::string& key);
+    std::shared_ptr<AppSettingsDBNode> getParentNode(const std::string& key);
 
     std::shared_ptr<AppSettingsDBNode> createNode(const std::string& key);
 

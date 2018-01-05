@@ -35,5 +35,6 @@ TestResult::EOutcome AppSettingsDBSetStringTest1(FileComparisonTest& test);
 TestResult::EOutcome AppSettingsDBSetStringListTest1(FileComparisonTest& test);
 TestResult::EOutcome AppSettingsDBSetStringListTest2(FileComparisonTest& test);
 TestResult::EOutcome AppSettingsDBSetStringListTest3(FileComparisonTest& test);
+TestResult::EOutcome AppSettingsDBSetParentNodeTest1(FileComparisonTest& test);
 
 #endif

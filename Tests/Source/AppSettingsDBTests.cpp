@@ -37,6 +37,8 @@ void AddAppSettingsDBTests(TestHarness& theTestHarness)
     new FileComparisonTest("setStringList test 1", AppSettingsDBSetStringListTest1, appSettingsDBTestSequence);
     new FileComparisonTest("setStringList test 2", AppSettingsDBSetStringListTest2, appSettingsDBTestSequence);
     new FileComparisonTest("setStringList test 3", AppSettingsDBSetStringListTest3, appSettingsDBTestSequence);
+
+    new FileComparisonTest("setParentNode test 1", AppSettingsDBSetParentNodeTest1, appSettingsDBTestSequence);
 }
 
 TestResult::EOutcome AppSettingsDBCreationTest1(FileComparisonTest& test)
@@ -202,6 +204,35 @@ TestResult::EOutcome AppSettingsDBSetStringListTest3(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetStringListTest3.xml");
+
+    return result;
+}
+
+TestResult::EOutcome AppSettingsDBSetParentNodeTest1(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBSetParentNodeTest1.xml");
+
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    repository->create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
+
+    DiplodocusDB::AppSettingsDB appSettings(repository);
+
+    Ishiko::Error error;
+    appSettings.setParentNode("key1", error);
+
+    if (!error)
+    {
+        std::shared_ptr<DiplodocusDB::AppSettingsDBNode> node = appSettings.getParentNode("key1", error);
+        if (node && !error)
+        {
+            result = TestResult::ePassed;
+        }
+    }
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetParentNodeTest1.xml");
 
     return result;
 }
