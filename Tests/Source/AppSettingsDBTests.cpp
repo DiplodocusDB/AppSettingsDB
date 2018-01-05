@@ -36,6 +36,7 @@ void AddAppSettingsDBTests(TestHarness& theTestHarness)
 
     new FileComparisonTest("setStringList test 1", AppSettingsDBSetStringListTest1, appSettingsDBTestSequence);
     new FileComparisonTest("setStringList test 2", AppSettingsDBSetStringListTest2, appSettingsDBTestSequence);
+    new FileComparisonTest("setStringList test 3", AppSettingsDBSetStringListTest3, appSettingsDBTestSequence);
 }
 
 TestResult::EOutcome AppSettingsDBCreationTest1(FileComparisonTest& test)
@@ -160,7 +161,8 @@ TestResult::EOutcome AppSettingsDBSetStringListTest2(FileComparisonTest& test)
     {
         std::vector<std::string> returnedValues;
         appSettings.getStringList("key1", returnedValues, error);
-        if (!error && (returnedValues.size() == 1))
+        if (!error && 
+            (returnedValues.size() == 1) && (returnedValues[0] == "value1"))
         {
             result = TestResult::ePassed;
         }
@@ -168,6 +170,38 @@ TestResult::EOutcome AppSettingsDBSetStringListTest2(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetStringListTest2.xml");
+
+    return result;
+}
+
+TestResult::EOutcome AppSettingsDBSetStringListTest3(FileComparisonTest& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBSetStringListTest3.xml");
+
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    repository->create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
+
+    DiplodocusDB::AppSettingsDB appSettings(repository);
+
+    Ishiko::Error error;
+    std::vector<std::string> values = { "value1", "value2" };
+    appSettings.setStringList("key1", values, error);
+
+    if (!error)
+    {
+        std::vector<std::string> returnedValues;
+        appSettings.getStringList("key1", returnedValues, error);
+        if (!error &&
+            (returnedValues.size() == 2) && (returnedValues[0] == "value1") && (returnedValues[1] == "value2"))
+        {
+            result = TestResult::ePassed;
+        }
+    }
+
+    test.setOutputFilePath(outputPath);
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetStringListTest3.xml");
 
     return result;
 }
