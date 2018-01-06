@@ -60,6 +60,9 @@ void AppSettingsDBXMLFileRepositoryImpl::create(const VersionNumber& version,
 
 void AppSettingsDBXMLFileRepositoryImpl::open(const boost::filesystem::path& path)
 {
+    m_document.load_file(path.c_str());
+    m_rootNode = m_document.root().child("application-settings");
+    m_settingsNode = m_rootNode.child("settings");
 }
 
 std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLFileRepositoryImpl::root()

@@ -39,6 +39,10 @@ void AddAppSettingsDBTests(TestHarness& theTestHarness)
     new FileComparisonTest("setStringList test 3", AppSettingsDBSetStringListTest3, appSettingsDBTestSequence);
 
     new FileComparisonTest("setParentNode test 1", AppSettingsDBSetParentNodeTest1, appSettingsDBTestSequence);
+
+    new HeapAllocationErrorsTest("getBool test 1", AppSettingsDBGetBoolTest1, appSettingsDBTestSequence);
+
+    new HeapAllocationErrorsTest("getString test 1", AppSettingsDBGetStringTest1, appSettingsDBTestSequence);
 }
 
 TestResult::EOutcome AppSettingsDBCreationTest1(FileComparisonTest& test)
@@ -233,6 +237,56 @@ TestResult::EOutcome AppSettingsDBSetParentNodeTest1(FileComparisonTest& test)
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetParentNodeTest1.xml");
+
+    return result;
+}
+
+TestResult::EOutcome AppSettingsDBGetBoolTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "AppSettingsDBGetBoolTest1.xml");
+
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    repository->open(inputPath);
+
+    DiplodocusDB::AppSettingsDB appSettings(repository);
+
+    Ishiko::Error error;
+    bool value = appSettings.getBool("key1", error);
+
+    if (!error)
+    {
+        if (value == true)
+        {
+            result = TestResult::ePassed;
+        }
+    }
+
+    return result;
+}
+
+TestResult::EOutcome AppSettingsDBGetStringTest1(Test& test)
+{
+    TestResult::EOutcome result = TestResult::eFailed;
+
+    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "AppSettingsDBGetStringTest1.xml");
+
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    repository->open(inputPath);
+
+    DiplodocusDB::AppSettingsDB appSettings(repository);
+
+    Ishiko::Error error;
+    std::string value = appSettings.getString("key1", error);
+
+    if (!error)
+    {
+        if (value == "value1")
+        {
+            result = TestResult::ePassed;
+        }
+    }
 
     return result;
 }
