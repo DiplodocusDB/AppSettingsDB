@@ -34,7 +34,7 @@ namespace DiplodocusDB
 class AppSettingsDBNode
 {
 public:
-    AppSettingsDBNode(const std::string& key);
+    AppSettingsDBNode();
     virtual ~AppSettingsDBNode();
 
     bool getBool(const std::string& key, Ishiko::Error& error) const;
@@ -60,7 +60,6 @@ private:
     virtual std::shared_ptr<AppSettingsDBNode> getParentNode(const std::string& key) = 0;
 
 protected:
-    std::string m_key;
     DataType m_dataType;
     std::string m_value;
     std::vector<std::string> m_values;

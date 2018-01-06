@@ -33,7 +33,7 @@ namespace DiplodocusDB
 class AppSettingsDBXMLNodeImpl : public AppSettingsDBNode
 {
 public:
-    AppSettingsDBXMLNodeImpl(const std::string& key, std::shared_ptr<AppSettingsDBXMLFileRepositoryImpl> repository,
+    AppSettingsDBXMLNodeImpl(std::shared_ptr<AppSettingsDBXMLFileRepositoryImpl> repository,
         pugi::xml_node node);
     ~AppSettingsDBXMLNodeImpl() override = default;
 

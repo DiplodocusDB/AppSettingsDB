@@ -25,8 +25,8 @@
 namespace DiplodocusDB
 {
 
-AppSettingsDBNode::AppSettingsDBNode(const std::string& key)
-    : m_key(key), m_dataType(EPrimitiveDataType::eNULL)
+AppSettingsDBNode::AppSettingsDBNode()
+    : m_dataType(EPrimitiveDataType::eNULL)
 {
 }
 

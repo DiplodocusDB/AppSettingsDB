@@ -25,10 +25,9 @@
 namespace DiplodocusDB
 {
 
-AppSettingsDBXMLNodeImpl::AppSettingsDBXMLNodeImpl(const std::string& key,
-                                                   std::shared_ptr<AppSettingsDBXMLFileRepositoryImpl> repository,
+AppSettingsDBXMLNodeImpl::AppSettingsDBXMLNodeImpl(std::shared_ptr<AppSettingsDBXMLFileRepositoryImpl> repository,
                                                    pugi::xml_node node)
-    : AppSettingsDBNode(key), m_repository(repository), m_node(node)
+    : m_repository(repository), m_node(node)
 {
 }
 
@@ -53,14 +52,14 @@ void AppSettingsDBXMLNodeImpl::commit()
 std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLNodeImpl::createNode(const std::string& key)
 {
     pugi::xml_node newNode = m_node.append_child(key.c_str());
-    return std::make_shared<AppSettingsDBXMLNodeImpl>(key, m_repository, newNode);
+    return std::make_shared<AppSettingsDBXMLNodeImpl>(m_repository, newNode);
 }
 
 std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLNodeImpl::getNode(const std::string& key)
 {
     std::shared_ptr<AppSettingsDBXMLNodeImpl> result;
     pugi::xml_node node = m_node.child(key.c_str());
-    result = std::make_shared<AppSettingsDBXMLNodeImpl>(key, m_repository, node);
+    result = std::make_shared<AppSettingsDBXMLNodeImpl>(m_repository, node);
     result->m_dataType = DataType(EPrimitiveDataType::eUTF8String);
     result->m_value = node.text().as_string();
     return result;
@@ -70,7 +69,7 @@ std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLNodeImpl::getListNode(const s
 {
     std::shared_ptr<AppSettingsDBXMLNodeImpl> result;
     pugi::xml_node node = m_node.child(key.c_str());
-    result = std::make_shared<AppSettingsDBXMLNodeImpl>(key, m_repository, node);
+    result = std::make_shared<AppSettingsDBXMLNodeImpl>(m_repository, node);
 
     std::vector<std::string> values;
     for (pugi::xml_node item : node.children("item"))
@@ -87,7 +86,7 @@ std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLNodeImpl::getParentNode(const
 {
     std::shared_ptr<AppSettingsDBXMLNodeImpl> result;
     pugi::xml_node node = m_node.child(key.c_str());
-    result = std::make_shared<AppSettingsDBXMLNodeImpl>(key, m_repository, node);
+    result = std::make_shared<AppSettingsDBXMLNodeImpl>(m_repository, node);
     return result;
 }
 
