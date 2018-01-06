@@ -34,12 +34,6 @@ AppSettingsDBNode::~AppSettingsDBNode()
 {
 }
 
-void AppSettingsDBNode::setString(const std::string& value)
-{
-    m_dataType = DataType(EPrimitiveDataType::eUTF8String);
-    m_value = value;
-}
-
 bool AppSettingsDBNode::getBool(const std::string& key,
                                 Ishiko::Error& error) const
 {
@@ -154,7 +148,8 @@ void AppSettingsDBNode::set(const std::string& key,
     try
     {
         std::shared_ptr<AppSettingsDBNode> newNode = createNode(key);
-        newNode->setString(value);
+        newNode->m_dataType = DataType(EPrimitiveDataType::eUTF8String);
+        newNode->m_value = value;
         newNode->commit();
     }
     catch (...)

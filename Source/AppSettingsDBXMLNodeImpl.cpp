@@ -61,7 +61,8 @@ std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLNodeImpl::getNode(const std::
     std::shared_ptr<AppSettingsDBXMLNodeImpl> result;
     pugi::xml_node node = m_node.child(key.c_str());
     result = std::make_shared<AppSettingsDBXMLNodeImpl>(key, m_repository, node);
-    result->setString(node.text().as_string());
+    result->m_dataType = DataType(EPrimitiveDataType::eUTF8String);
+    result->m_value = node.text().as_string();
     return result;
 }
 

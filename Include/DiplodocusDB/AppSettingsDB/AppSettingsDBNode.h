@@ -37,8 +37,6 @@ public:
     AppSettingsDBNode(const std::string& key);
     virtual ~AppSettingsDBNode();
 
-    void setString(const std::string& value);
-    
     bool getBool(const std::string& key, Ishiko::Error& error) const;
     std::string getString(const std::string& key, Ishiko::Error& error) const;
     void getStringList(const std::string& key, std::vector<std::string>& values, Ishiko::Error& error) const;
