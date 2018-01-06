@@ -76,7 +76,8 @@ std::shared_ptr<AppSettingsDBNode> AppSettingsDBXMLNodeImpl::getListNode(const s
     {
         values.push_back(item.text().as_string());
     }
-    result->setStringList(values);
+    result->m_dataType = DataType(EPrimitiveDataType::eUTF8String, EDataTypeModifier::eList);
+    result->m_values = values;
 
     return result;
 }

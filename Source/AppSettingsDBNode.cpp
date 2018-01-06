@@ -34,26 +34,10 @@ AppSettingsDBNode::~AppSettingsDBNode()
 {
 }
 
-const std::string& AppSettingsDBNode::value() const
-{
-    return m_value;
-}
-
-const std::vector<std::string>& AppSettingsDBNode::values() const
-{
-    return m_values;
-}
-
 void AppSettingsDBNode::setString(const std::string& value)
 {
     m_dataType = DataType(EPrimitiveDataType::eUTF8String);
     m_value = value;
-}
-
-void AppSettingsDBNode::setStringList(const std::vector<std::string>& values)
-{
-    m_dataType = DataType(EPrimitiveDataType::eUTF8String, EDataTypeModifier::eList);
-    m_values = values;
 }
 
 bool AppSettingsDBNode::getBool(const std::string& key,
@@ -64,7 +48,7 @@ bool AppSettingsDBNode::getBool(const std::string& key,
     std::shared_ptr<AppSettingsDBNode> node = const_cast<AppSettingsDBNode*>(this)->getNode(key);
     if (node)
     {
-        result = (node->value() == "true");
+        result = (node->m_value == "true");
     }
     else
     {
@@ -82,7 +66,7 @@ std::string AppSettingsDBNode::getString(const std::string& key,
     std::shared_ptr<AppSettingsDBNode> node = const_cast<AppSettingsDBNode*>(this)->getNode(key);
     if (node)
     {
-        result = node->value();
+        result = node->m_value;
     }
     else
     {
@@ -99,7 +83,7 @@ void AppSettingsDBNode::getStringList(const std::string& key,
     std::shared_ptr<AppSettingsDBNode> node = const_cast<AppSettingsDBNode*>(this)->getListNode(key);
     if (node)
     {
-        values.insert(values.end(), node->values().begin(), node->values().end());
+        values.insert(values.end(), node->m_values.begin(), node->m_values.end());
     }
     else
     {
@@ -139,7 +123,8 @@ void AppSettingsDBNode::setStringList(const std::string& key,
     try
     {
         std::shared_ptr<AppSettingsDBNode> newNode = createNode(key);
-        newNode->setStringList(values);
+        newNode->m_dataType = DataType(EPrimitiveDataType::eUTF8String, EDataTypeModifier::eList);
+        newNode->m_values = values;
         newNode->commit();
     }
     catch (...)
