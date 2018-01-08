@@ -25,6 +25,15 @@
 namespace DiplodocusDB
 {
 
+AppSettingsDB::AppSettingsDB()
+{
+}
+
+void AppSettingsDB::create(std::shared_ptr<AppSettingsDBRepository> repository)
+{
+    m_repository = repository;
+}
+
 AppSettingsDB::AppSettingsDB(std::shared_ptr<AppSettingsDBRepository> repository)
     : m_repository(repository)
 {

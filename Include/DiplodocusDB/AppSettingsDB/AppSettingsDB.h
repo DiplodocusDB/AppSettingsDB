@@ -36,6 +36,8 @@ namespace DiplodocusDB
 class AppSettingsDB
 {
 public:
+    AppSettingsDB();
+    void create(std::shared_ptr<AppSettingsDBRepository> repository);
     AppSettingsDB(std::shared_ptr<AppSettingsDBRepository> repository);
     ~AppSettingsDB();
 
