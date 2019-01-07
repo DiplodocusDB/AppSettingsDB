@@ -81,7 +81,7 @@ DIPLODOCUSDB_CORE_ROOT ?= $(DIPLODOCUSDB)/Core
 all: ../Bakefile/../../Lib/lib$(if $(call _equal,$(config),Debug),AppSettingsDB-d,AppSettingsDB).a
 
 ../Bakefile/../../Lib/lib$(if $(call _equal,$(config),Debug),AppSettingsDB-d,AppSettingsDB).a: $(_builddir)AppSettingsDB_AppSettingsDB.o $(_builddir)AppSettingsDB_AppSettingsDBNode.o $(_builddir)AppSettingsDB_AppSettingsDBRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLNodeImpl.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o
-	$(AR) rcu $@ $(_builddir)AppSettingsDB_AppSettingsDB.o $(_builddir)AppSettingsDB_AppSettingsDBNode.o $(_builddir)AppSettingsDB_AppSettingsDBRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLNodeImpl.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o
+	$(AR) rc $@ $(_builddir)AppSettingsDB_AppSettingsDB.o $(_builddir)AppSettingsDB_AppSettingsDBNode.o $(_builddir)AppSettingsDB_AppSettingsDBRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepository.o $(_builddir)AppSettingsDB_AppSettingsDBXMLNodeImpl.o $(_builddir)AppSettingsDB_AppSettingsDBXMLFileRepositoryImpl.o
 	$(RANLIB) $@
 
 $(_builddir)AppSettingsDB_AppSettingsDB.o: ../../Source/AppSettingsDB.cpp
