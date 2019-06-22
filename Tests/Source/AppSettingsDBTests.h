@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2017 Xavier Leclercq
+    Copyright (c) 2017-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -25,18 +25,21 @@
 
 #include "Ishiko/TestFramework/TestFrameworkCore.h"
 
-using namespace Ishiko::TestFramework;
+class AppSettingsDBTests : public Ishiko::Tests::TestSequence
+{
+public:
+    AppSettingsDBTests(const Ishiko::Tests::TestNumber& number, const Ishiko::Tests::TestEnvironment& environment);
 
-void AddAppSettingsDBTests(TestHarness& theTestHarness);
-
-TestResult::EOutcome AppSettingsDBCreationTest1(FileComparisonTest& test);
-TestResult::EOutcome AppSettingsDBSetBoolTest1(FileComparisonTest& test);
-TestResult::EOutcome AppSettingsDBSetStringTest1(FileComparisonTest& test);
-TestResult::EOutcome AppSettingsDBSetStringListTest1(FileComparisonTest& test);
-TestResult::EOutcome AppSettingsDBSetStringListTest2(FileComparisonTest& test);
-TestResult::EOutcome AppSettingsDBSetStringListTest3(FileComparisonTest& test);
-TestResult::EOutcome AppSettingsDBSetParentNodeTest1(FileComparisonTest& test);
-TestResult::EOutcome AppSettingsDBGetBoolTest1(Test& test);
-TestResult::EOutcome AppSettingsDBGetStringTest1(Test& test);
+private:
+    static void ConstructorTest1(Ishiko::Tests::FileComparisonTest& test);
+    static void SetBoolTest1(Ishiko::Tests::FileComparisonTest& test);
+    static void SetStringTest1(Ishiko::Tests::FileComparisonTest& test);
+    static void SetStringListTest1(Ishiko::Tests::FileComparisonTest& test);
+    static void SetStringListTest2(Ishiko::Tests::FileComparisonTest& test);
+    static void SetStringListTest3(Ishiko::Tests::FileComparisonTest& test);
+    static void SetParentNodeTest1(Ishiko::Tests::FileComparisonTest& test);
+    static void GetBoolTest1(Ishiko::Tests::Test& test);
+    static void GetStringTest1(Ishiko::Tests::Test& test);
+};
 
 #endif

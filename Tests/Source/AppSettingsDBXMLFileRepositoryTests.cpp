@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2017 Xavier Leclercq
+    Copyright (c) 2017-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -23,50 +23,48 @@
 #include "AppSettingsDBXMLFileRepositoryTests.h"
 #include "DiplodocusDB/AppSettingsDB/AppSettingsDBXMLFileRepository.h"
 
-void AddAppSettingsDBXMLFileRepositoryTests(TestHarness& theTestHarness)
+using namespace Ishiko::Tests;
+using namespace boost::filesystem;
+
+AppSettingsDBXMLFileRepositoryTests::AppSettingsDBXMLFileRepositoryTests(const TestNumber& number,
+    const TestEnvironment& environment)
+    : TestSequence(number, "AppSettingsDBXMLFileRepository tests", environment)
 {
-    TestSequence& repositoryTestSequence = theTestHarness.appendTestSequence("AppSettingsDBXMLFileRepository tests");
-
-    new HeapAllocationErrorsTest("Creation test 1", AppSettingsDBXMLFileRepositoryCreationTest1, repositoryTestSequence);
-
-    new FileComparisonTest("create test 1", AppSettingsDBXMLFileRepositoryCreateTest1, repositoryTestSequence);
-
-    new HeapAllocationErrorsTest("open test 1", AppSettingsDBXMLFileRepositoryOpenTest1, repositoryTestSequence);
+    append<HeapAllocationErrorsTest>("Constructor test 1", ConstructorTest1);
+    append<FileComparisonTest>("create test 1", CreateTest1);
+    append<HeapAllocationErrorsTest>("open test 1", OpenTest1);
 }
 
-TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreationTest1()
+void AppSettingsDBXMLFileRepositoryTests::ConstructorTest1(Test& test)
 {
     DiplodocusDB::AppSettingsDBXMLFileRepository repository;
-    return TestResult::ePassed;
+
+    ISHTF_PASS();
 }
 
 // Test creation of XML file when the file doesn't exist yet
-TestResult::EOutcome AppSettingsDBXMLFileRepositoryCreateTest1(FileComparisonTest& test)
+void AppSettingsDBXMLFileRepositoryTests::CreateTest1(FileComparisonTest& test)
 {
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBXMLFileRepositoryCreateTest1.xml");
+    path outputPath(test.environment().getTestOutputDirectory()
+        / "AppSettingsDBXMLFileRepositoryTests_CreateTest1.xml");
 
     DiplodocusDB::AppSettingsDBXMLFileRepository repository;
     repository.create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBXMLFileRepositoryCreateTest1.xml");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "AppSettingsDBXMLFileRepositoryTests_CreateTest1.xml");
 
-    return TestResult::ePassed;
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome AppSettingsDBXMLFileRepositoryOpenTest1(Test& test)
+void AppSettingsDBXMLFileRepositoryTests::OpenTest1(Test& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "AppSettingsDBXMLFileRepositoryOpenTest1.xml");
+    path inputPath(test.environment().getTestDataDirectory() / "AppSettingsDBXMLFileRepositoryTests_OpenTest1.xml");
 
     DiplodocusDB::AppSettingsDBXMLFileRepository repository;
     repository.open(inputPath);
 
-    if (repository.root())
-    {
-        result = TestResult::ePassed;
-    }
-
-    return result;
+    ISHTF_FAIL_UNLESS(repository.root());
+    ISHTF_PASS();
 }

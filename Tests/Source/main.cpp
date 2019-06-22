@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2017 Xavier Leclercq
+    Copyright (c) 2017-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -25,17 +25,20 @@
 #include "Ishiko/TestFramework/TestFrameworkCore.h"
 #include <boost/filesystem/operations.hpp>
 
+using namespace Ishiko::Tests;
+
 int main(int argc, char* argv[])
 {
-    Ishiko::TestFramework::TestHarness theTestHarness("AppSettingsDB");
+    TestHarness theTestHarness("AppSettingsDB");
 
     theTestHarness.environment().setTestDataDirectory("../../TestData");
     theTestHarness.environment().setTestOutputDirectory("../../TestOutput");
     boost::filesystem::create_directories("../../TestOutput");
     theTestHarness.environment().setReferenceDataDirectory("../../ReferenceData");
 
-    AddAppSettingsDBXMLFileRepositoryTests(theTestHarness);
-    AddAppSettingsDBTests(theTestHarness);
+    TestSequence& theTests = theTestHarness.tests();
+    theTests.append<AppSettingsDBXMLFileRepositoryTests>();
+    theTests.append<AppSettingsDBTests>();
 
     return theTestHarness.run();
 }

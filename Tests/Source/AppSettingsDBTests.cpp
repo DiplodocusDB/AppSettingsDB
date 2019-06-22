@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2017 Xavier Leclercq
+    Copyright (c) 2017-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -24,269 +24,239 @@
 #include "DiplodocusDB/AppSettingsDB/AppSettingsDB.h"
 #include "DiplodocusDB/AppSettingsDB/AppSettingsDBXMLFileRepository.h"
 
-void AddAppSettingsDBTests(TestHarness& theTestHarness)
+using namespace Ishiko::Tests;
+using namespace boost::filesystem;
+
+AppSettingsDBTests::AppSettingsDBTests(const TestNumber& number, const TestEnvironment& environment)
+    : TestSequence(number, "AppSettingsDB tests", environment)
 {
-    TestSequence& appSettingsDBTestSequence = theTestHarness.appendTestSequence("AppSettingsDB tests");
-
-    new FileComparisonTest("Creation test 1", AppSettingsDBCreationTest1, appSettingsDBTestSequence);
-
-    new FileComparisonTest("setBool test 1", AppSettingsDBSetBoolTest1, appSettingsDBTestSequence);
-
-    new FileComparisonTest("setString test 1", AppSettingsDBSetStringTest1, appSettingsDBTestSequence);
-
-    new FileComparisonTest("setStringList test 1", AppSettingsDBSetStringListTest1, appSettingsDBTestSequence);
-    new FileComparisonTest("setStringList test 2", AppSettingsDBSetStringListTest2, appSettingsDBTestSequence);
-    new FileComparisonTest("setStringList test 3", AppSettingsDBSetStringListTest3, appSettingsDBTestSequence);
-
-    new FileComparisonTest("setParentNode test 1", AppSettingsDBSetParentNodeTest1, appSettingsDBTestSequence);
-
-    new HeapAllocationErrorsTest("getBool test 1", AppSettingsDBGetBoolTest1, appSettingsDBTestSequence);
-
-    new HeapAllocationErrorsTest("getString test 1", AppSettingsDBGetStringTest1, appSettingsDBTestSequence);
+    append<FileComparisonTest>("Constructor test 1", ConstructorTest1);
+    append<FileComparisonTest>("setBool test 1", SetBoolTest1);
+    append<FileComparisonTest>("setString test 1", SetStringTest1);
+    append<FileComparisonTest>("setStringList test 1", SetStringListTest1);
+    append<FileComparisonTest>("setStringList test 2", SetStringListTest2);
+    append<FileComparisonTest>("setStringList test 3", SetStringListTest3);
+    append<FileComparisonTest>("setParentNode test 1", SetParentNodeTest1);
+    append<HeapAllocationErrorsTest>("getBool test 1", GetBoolTest1);
+    append<HeapAllocationErrorsTest>("getString test 1", GetStringTest1);
 }
 
-TestResult::EOutcome AppSettingsDBCreationTest1(FileComparisonTest& test)
+void AppSettingsDBTests::ConstructorTest1(FileComparisonTest& test)
 {
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBCreationTest1.xml");
+    path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBTests_ConstructorTest1.xml");
 
-    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository =
+        std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
     repository->create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
 
     DiplodocusDB::AppSettingsDB appSettings(repository);
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBCreationTest1.xml");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "AppSettingsDBTests_ConstructorTest1.xml");
 
-    return TestResult::ePassed;
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome AppSettingsDBSetBoolTest1(FileComparisonTest& test)
+void AppSettingsDBTests::SetBoolTest1(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
+    path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBTests_SetBoolTest1.xml");
 
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBSetBoolTest1.xml");
-
-    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository =
+        std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
     repository->create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
 
     DiplodocusDB::AppSettingsDB appSettings(repository);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
     appSettings.setBool("key1", true, error);
 
-    if (!error)
-    {
-        bool value = appSettings.getBool("key1", error);
-        if (!error && (value == true))
-        {
-            result = TestResult::ePassed;
-        }
-    }
+    ISHTF_FAIL_IF(error);
+
+    bool value = appSettings.getBool("key1", error);
+
+    ISHTF_FAIL_IF(error);
+    ISHTF_FAIL_UNLESS(value == true);
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetBoolTest1.xml");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBTests_SetBoolTest1.xml");
 
-    return result;
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome AppSettingsDBSetStringTest1(FileComparisonTest& test)
+void AppSettingsDBTests::SetStringTest1(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBSetStringTest1.xml");
+    path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBTests_SetStringTest1.xml");
 
     std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
     repository->create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
 
     DiplodocusDB::AppSettingsDB appSettings(repository);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
     appSettings.setString("key1", "value1", error);
 
-    if (!error)
-    {
-        std::string value = appSettings.getString("key1", error);
-        if (!error && (value == "value1"))
-        {
-            result = TestResult::ePassed;
-        }
-    }
+    ISHTF_FAIL_IF(error);
+    
+    std::string value = appSettings.getString("key1", error);
 
+    ISHTF_FAIL_IF(error);
+    ISHTF_FAIL_UNLESS(value == "value1");
+    
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetStringTest1.xml");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "AppSettingsDBTests_SetStringTest1.xml");
 
-    return result;
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome AppSettingsDBSetStringListTest1(FileComparisonTest& test)
+void AppSettingsDBTests::SetStringListTest1(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
+    path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBTests_SetStringListTest1.xml");
 
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBSetStringListTest1.xml");
-
-    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository =
+        std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
     repository->create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
 
     DiplodocusDB::AppSettingsDB appSettings(repository);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
     appSettings.setStringList("key1", std::vector<std::string>(), error);
 
-    if (!error)
-    {
-        std::vector<std::string> returnedValues;
-        appSettings.getStringList("key1", returnedValues, error);
-        if (!error && returnedValues.empty())
-        {
-            result = TestResult::ePassed;
-        }
-    }
+    ISHTF_FAIL_IF(error);
+
+    std::vector<std::string> returnedValues;
+    appSettings.getStringList("key1", returnedValues, error);
+
+    ISHTF_FAIL_IF(error);
+    ISHTF_FAIL_UNLESS(returnedValues.empty());
 
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetStringListTest1.xml");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "AppSettingsDBTests_SetStringListTest1.xml");
 
-    return result;
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome AppSettingsDBSetStringListTest2(FileComparisonTest& test)
+void AppSettingsDBTests::SetStringListTest2(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
+    path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBTests_SetStringListTest2.xml");
 
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBSetStringListTest2.xml");
-
-    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository =
+        std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
     repository->create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
 
     DiplodocusDB::AppSettingsDB appSettings(repository);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
     std::vector<std::string> values = { "value1" };
     appSettings.setStringList("key1", values, error);
 
-    if (!error)
-    {
-        std::vector<std::string> returnedValues;
-        appSettings.getStringList("key1", returnedValues, error);
-        if (!error && 
-            (returnedValues.size() == 1) && (returnedValues[0] == "value1"))
-        {
-            result = TestResult::ePassed;
-        }
-    }
+    ISHTF_FAIL_IF(error);
+    
+    std::vector<std::string> returnedValues;
+    appSettings.getStringList("key1", returnedValues, error);
 
+    ISHTF_FAIL_IF(error);
+    ISHTF_ABORT_UNLESS(returnedValues.size() == 1);
+    ISHTF_FAIL_UNLESS(returnedValues[0] == "value1");
+    
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetStringListTest2.xml");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "AppSettingsDBTests_SetStringListTest2.xml");
 
-    return result;
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome AppSettingsDBSetStringListTest3(FileComparisonTest& test)
+void AppSettingsDBTests::SetStringListTest3(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
+    path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBTests_SetStringListTest3.xml");
 
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBSetStringListTest3.xml");
-
-    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository =
+        std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
     repository->create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
 
     DiplodocusDB::AppSettingsDB appSettings(repository);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
     std::vector<std::string> values = { "value1", "value2" };
     appSettings.setStringList("key1", values, error);
 
-    if (!error)
-    {
-        std::vector<std::string> returnedValues;
-        appSettings.getStringList("key1", returnedValues, error);
-        if (!error &&
-            (returnedValues.size() == 2) && (returnedValues[0] == "value1") && (returnedValues[1] == "value2"))
-        {
-            result = TestResult::ePassed;
-        }
-    }
+    ISHTF_FAIL_IF(error);
+    
+    std::vector<std::string> returnedValues;
+    appSettings.getStringList("key1", returnedValues, error);
 
+    ISHTF_FAIL_IF(error);
+    ISHTF_ABORT_UNLESS(returnedValues.size() == 2);
+    ISHTF_FAIL_UNLESS(returnedValues[0] == "value1");
+    ISHTF_FAIL_UNLESS(returnedValues[1] == "value2");
+    
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetStringListTest3.xml");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "AppSettingsDBTests_SetStringListTest3.xml");
 
-    return result;
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome AppSettingsDBSetParentNodeTest1(FileComparisonTest& test)
+void AppSettingsDBTests::SetParentNodeTest1(FileComparisonTest& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
+    path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBTests_SetParentNodeTest1.xml");
 
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "AppSettingsDBSetParentNodeTest1.xml");
-
-    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository =
+        std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
     repository->create(DiplodocusDB::VersionNumber(1, 0, 0), outputPath);
 
     DiplodocusDB::AppSettingsDB appSettings(repository);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
     appSettings.setParentNode("key1", error);
 
-    if (!error)
-    {
-        std::shared_ptr<DiplodocusDB::AppSettingsDBNode> node = appSettings.getParentNode("key1", error);
-        if (node && !error)
-        {
-            result = TestResult::ePassed;
-        }
-    }
+    ISHTF_FAIL_IF(error);
+    
+    std::shared_ptr<DiplodocusDB::AppSettingsDBNode> node = appSettings.getParentNode("key1", error);
 
+    ISHTF_FAIL_IF(error);
+    ISHTF_FAIL_UNLESS(node);
+    
     test.setOutputFilePath(outputPath);
-    test.setReferenceFilePath(test.environment().getReferenceDataDirectory() / "AppSettingsDBSetParentNodeTest1.xml");
+    test.setReferenceFilePath(test.environment().getReferenceDataDirectory()
+        / "AppSettingsDBTests_SetParentNodeTest1.xml");
 
-    return result;
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome AppSettingsDBGetBoolTest1(Test& test)
+void AppSettingsDBTests::GetBoolTest1(Test& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
+    path inputPath(test.environment().getTestDataDirectory() / "AppSettingsDBTests_GetBoolTest1.xml");
 
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "AppSettingsDBGetBoolTest1.xml");
-
-    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
+    std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository =
+        std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
     repository->open(inputPath);
 
     DiplodocusDB::AppSettingsDB appSettings(repository);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
     bool value = appSettings.getBool("key1", error);
 
-    if (!error)
-    {
-        if (value == true)
-        {
-            result = TestResult::ePassed;
-        }
-    }
-
-    return result;
+    ISHTF_FAIL_IF(error);
+    ISHTF_FAIL_UNLESS(value == true);
+    ISHTF_PASS();
 }
 
-TestResult::EOutcome AppSettingsDBGetStringTest1(Test& test)
+void AppSettingsDBTests::GetStringTest1(Test& test)
 {
-    TestResult::EOutcome result = TestResult::eFailed;
-
-    boost::filesystem::path inputPath(test.environment().getTestDataDirectory() / "AppSettingsDBGetStringTest1.xml");
+    path inputPath(test.environment().getTestDataDirectory() / "AppSettingsDBTests_GetStringTest1.xml");
 
     std::shared_ptr<DiplodocusDB::AppSettingsDBXMLFileRepository> repository = std::make_shared<DiplodocusDB::AppSettingsDBXMLFileRepository>();
     repository->open(inputPath);
 
     DiplodocusDB::AppSettingsDB appSettings(repository);
 
-    Ishiko::Error error;
+    Ishiko::Error error(0);
     std::string value = appSettings.getString("key1", error);
 
-    if (!error)
-    {
-        if (value == "value1")
-        {
-            result = TestResult::ePassed;
-        }
-    }
-
-    return result;
+    ISHTF_FAIL_IF(error);
+    ISHTF_FAIL_UNLESS(value == "value1");
+    ISHTF_PASS();
 }

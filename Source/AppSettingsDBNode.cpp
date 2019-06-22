@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2015-2018 Xavier Leclercq
+    Copyright (c) 2015-2019 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -46,7 +46,8 @@ bool AppSettingsDBNode::getBool(const std::string& key,
     }
     else
     {
-        error = -1;
+        // TODO: better error
+        error.fail(-1);
     }
 
     return result;
@@ -64,7 +65,8 @@ std::string AppSettingsDBNode::getString(const std::string& key,
     }
     else
     {
-        error = -1;
+        // TODO: better error
+        error.fail(-1);
     }
 
     return result;
@@ -81,7 +83,8 @@ void AppSettingsDBNode::getStringList(const std::string& key,
     }
     else
     {
-        error = -1;
+        // TODO: better error
+        error.fail(-1);
     }
 }
 
@@ -91,7 +94,8 @@ std::shared_ptr<AppSettingsDBNode> AppSettingsDBNode::getParentNode(const std::s
     std::shared_ptr<AppSettingsDBNode> node = const_cast<AppSettingsDBNode*>(this)->getParentNode(key);
     if (!node)
     {
-        error = -1;
+        // TODO: better error
+        error.fail(-1);
     }
     return node;
 }
@@ -123,7 +127,8 @@ void AppSettingsDBNode::setStringList(const std::string& key,
     }
     catch (...)
     {
-        error = -1;
+        // TODO: better error
+        error.fail(-1);
     }
 }
 
@@ -137,7 +142,8 @@ void AppSettingsDBNode::setParentNode(const std::string& key,
     }
     catch (...)
     {
-        error = -1;
+        // TODO: better error
+        error.fail(-1);
     }
 }
 
@@ -154,7 +160,8 @@ void AppSettingsDBNode::set(const std::string& key,
     }
     catch (...)
     {
-        error = -1;
+        // TODO: better error
+        error.fail(-1);
     }
 }
 
